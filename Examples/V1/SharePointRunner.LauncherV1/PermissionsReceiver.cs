@@ -6,15 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace testContractCallsByLauncher.Launcher
+namespace SharePointRunner.LauncherV1
 {
     /// <summary>
-    /// Informations d'un objet sécurisable
+    /// Securable object informations
     /// </summary>
     public class SecurableObjectInfo
     {
         /// <summary>
-        /// Enumération des types d'objets sécurisables
+        /// Enumeration of types of securable objects
         /// </summary>
         public enum SecurableObjectType
         {
@@ -76,7 +76,7 @@ namespace testContractCallsByLauncher.Launcher
     }
 
     /// <summary>
-    /// Mapping CSV
+    /// CSV mapping
     /// </summary>
     internal class SecurableObjectInfoMap : ClassMap<SecurableObjectInfo>
     {
@@ -116,7 +116,7 @@ namespace testContractCallsByLauncher.Launcher
     }
 
     /// <summary>
-    /// Mapping CSV
+    /// CSV mapping
     /// </summary>
     internal class GroupInfoMap : ClassMap<GroupInfo>
     {
@@ -132,14 +132,14 @@ namespace testContractCallsByLauncher.Launcher
     }
 
     /// <summary>
-    /// Récepteur de gestion des permissions
+    /// Permissions manager receiver
     /// </summary>
     public class PermissionsReceiver : Receiver
     {
         /// <summary>
-        /// Obtenir les niveaux d'audit implémentés par le récepteur
+        /// Get running levels declared by the receiver
         /// </summary>
-        /// <returns>Liste des niveaux d'audit</returns>
+        /// <returns>List of running levels</returns>
         public override List<RunningLevel> GetRunningLevels()
         {
             return GetRunningLevels<PermissionsReceiver>();
@@ -151,9 +151,9 @@ namespace testContractCallsByLauncher.Launcher
         private CsvWriterWrapper<GroupInfo, GroupInfoMap> permissionsGroupsFileWriter;
 
         /// <summary>
-        /// Charger un objet sécurisable
+        /// Load a securable object
         /// </summary>
-        /// <param name="securableObject">Objet sécurisable</param>
+        /// <param name="securableObject">Securable object</param>
         private void LoadSecurableObject(SecurableObject securableObject)
         {
             switch (securableObject)
@@ -186,9 +186,9 @@ namespace testContractCallsByLauncher.Launcher
         }
 
         /// <summary>
-        /// Exporter en CSV les propriétés d'un objet sécurisable
+        /// Export the properties of a securable objet to CSV
         /// </summary>
-        /// <param name="securableObject">Objet sécurisable</param>
+        /// <param name="securableObject">Securable object</param>
         private void WriteCsv(SecurableObject securableObject)
         {
             LoadSecurableObject(securableObject);

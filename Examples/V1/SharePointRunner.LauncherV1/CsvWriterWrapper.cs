@@ -2,7 +2,7 @@
 using CsvHelper.Configuration;
 using System.IO;
 
-namespace testContractCallsByLauncher.Launcher
+namespace SharePointRunner.LauncherV1
 {
     internal class CsvWriterWrapper<T1, T2> where T2 : ClassMap<T1>
     {

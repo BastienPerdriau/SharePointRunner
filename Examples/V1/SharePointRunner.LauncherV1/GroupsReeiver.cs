@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace testContractCallsByLauncher.Launcher
+namespace SharePointRunner.LauncherV1
 {
     /// <summary>
-    /// Informations d'un utilisateur d'un groupe
+    /// Group user informations
     /// </summary>
     public class GroupUserInfo
     {
@@ -36,7 +36,7 @@ namespace testContractCallsByLauncher.Launcher
     }
 
     /// <summary>
-    /// Mapping CSV
+    /// CSV mapping
     /// </summary>
     internal class GroupUserInfoMap : ClassMap<GroupUserInfo>
     {
@@ -54,9 +54,9 @@ namespace testContractCallsByLauncher.Launcher
     public class GroupsReceiver : Receiver
     {
         /// <summary>
-        /// Obtenir les niveaux d'audit implémentés par le récepteur
+        /// Get running levels declared by the receiver
         /// </summary>
-        /// <returns>Liste des niveaux d'audit</returns>
+        /// <returns>List of running levels</returns>
         public override List<RunningLevel> GetRunningLevels()
         {
             return GetRunningLevels<GroupsReceiver>();

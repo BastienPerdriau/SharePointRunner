@@ -4,10 +4,10 @@ using CsvHelper.Configuration;
 using Microsoft.SharePoint.Client;
 using SharePointRunner.SDK;
 
-namespace testContractCallsByLauncher.Launcher
+namespace SharePointRunner.LauncherV1
 {
     /// <summary>
-    /// Informations de l'usage d'un site
+    /// Site usage informations
     /// </summary>
     public class WebUsageInfo
     {
@@ -32,6 +32,9 @@ namespace testContractCallsByLauncher.Launcher
         public string LastEditor { get; set; }
     }
 
+    /// <summary>
+    /// CSV mapping
+    /// </summary>
     internal class WebUsageInfoMap : ClassMap<WebUsageInfo>
     {
         /// <summary>
@@ -51,9 +54,9 @@ namespace testContractCallsByLauncher.Launcher
     public class WebUsageReceiver : Receiver
     {
         /// <summary>
-        /// Obtenir les niveaux d'audit implémentés par le récepteur
+        /// Get running levels declared by the receiver
         /// </summary>
-        /// <returns>Liste des niveaux d'audit</returns>
+        /// <returns>List of running levels</returns>
         public override List<RunningLevel> GetRunningLevels()
         {
             return GetRunningLevels<WebUsageReceiver>();

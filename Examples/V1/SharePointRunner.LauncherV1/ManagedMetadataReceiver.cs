@@ -5,7 +5,7 @@ using SharePointRunner.SDK;
 using System;
 using System.Collections.Generic;
 
-namespace testContractCallsByLauncher.Launcher
+namespace SharePointRunner.LauncherV1
 {
     public class TermInfo
     {
@@ -21,9 +21,9 @@ namespace testContractCallsByLauncher.Launcher
     public class ManagedMetadataReceiver : Receiver
     {
         /// <summary>
-        /// Obtenir les niveaux d'audit implémentés par le récepteur
+        /// Get running levels declared by the receiver
         /// </summary>
-        /// <returns>Liste des niveaux d'audit</returns>
+        /// <returns>List of running levels</returns>
         public override List<RunningLevel> GetRunningLevels()
         {
             return GetRunningLevels<ManagedMetadataReceiver>();

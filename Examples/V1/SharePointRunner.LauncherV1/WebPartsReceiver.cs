@@ -7,10 +7,10 @@ using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.WebParts;
 using SharePointRunner.SDK;
 
-namespace testContractCallsByLauncher.Launcher
+namespace SharePointRunner.LauncherV1
 {
     /// <summary>
-    /// Informations d'une page
+    /// Page informations
     /// </summary>
     public class PageInfo
     {
@@ -35,7 +35,7 @@ namespace testContractCallsByLauncher.Launcher
     }
 
     /// <summary>
-    /// Mapping CSV
+    /// CSV mapping
     /// </summary>
     internal class PageInfoMap : ClassMap<PageInfo>
     {
@@ -55,9 +55,9 @@ namespace testContractCallsByLauncher.Launcher
     public class WebPartsReceiver : Receiver
     {
         /// <summary>
-        /// Obtenir les niveaux d'audit implémentés par le récepteur
+        /// Get running levels declared by the receiver
         /// </summary>
-        /// <returns>Liste des niveaux d'audit</returns>
+        /// <returns>List of running levels</returns>
         public override List<RunningLevel> GetRunningLevels()
         {
             return GetRunningLevels<WebPartsReceiver>();

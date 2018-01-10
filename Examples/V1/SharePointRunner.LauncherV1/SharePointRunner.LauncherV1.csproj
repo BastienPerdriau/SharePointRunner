@@ -108,6 +108,10 @@
       <Project>{7ff0252f-82fe-423a-a75e-4bce3a82cd0d}</Project>
       <Name>SharePointRunner.SDK</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Sources\SharePointRunner\SharePointRunner.csproj">
+      <Project>{860b8aac-87e6-4a3f-8f4f-2be4054e8d4f}</Project>
+      <Name>SharePointRunner</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
