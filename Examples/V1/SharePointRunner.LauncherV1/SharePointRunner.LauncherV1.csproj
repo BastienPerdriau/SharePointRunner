@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvWriterWrapper.cs" />
-    <Compile Include="GroupsReeiver.cs" />
+    <Compile Include="GroupsReceiver.cs" />
     <Compile Include="ManagedMetadataReceiver.cs" />
     <Compile Include="PermissionsReceiver.cs" />
     <Compile Include="Program.cs" />
