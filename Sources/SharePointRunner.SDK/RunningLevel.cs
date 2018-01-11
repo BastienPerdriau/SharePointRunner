@@ -1,6 +1,6 @@
 ﻿namespace SharePointRunner.SDK
 {
-    // TODO V3 Re-think the whole mecanism of running levels
+    // TODO V1 Re-think the whole mecanism of running levels
     /// <summary>
     /// Enumeration of levels of running SharePoint
     /// </summary>

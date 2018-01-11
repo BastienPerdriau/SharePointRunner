@@ -23,7 +23,7 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            // TODO V2 Folder Process
+            // TODO V1 Folder Process
         }
     }
 }

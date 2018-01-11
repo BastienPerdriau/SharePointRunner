@@ -34,10 +34,10 @@ namespace SharePointRunner
             // If at least one receiver run folders or deeper
             if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.Folder)))
             {
-                // TODO V2 Folders in lists
+                // TODO V1 Folders in lists
             }
 
-            // TODO V2 ListItems & files with or without folders
+            // TODO V1 ListItems & files with or without folders
 
             // OnListRunningEnd
             ActiveReceivers.ForEach(r => r.OnListRunningEnd(Element));
