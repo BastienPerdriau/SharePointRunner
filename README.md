@@ -13,11 +13,13 @@ The first step is to create a class which inherit from the `Receiver` class, fro
 This class needs to override some methods :
 
 - The getter of running levels for the receiver (I definitely want to move this internally)
-`public override List<RunningLevel> GetRunningLevels()
+```csharp
+public override List<RunningLevel> GetRunningLevels()
 {
 	// T is the type of the receiver class
 	return GetRunningLevels<T>();
-}`
+}
+```
 
 - `OnStart()` : Executed at the very start of the process, can be used to setup a file
 - `OnTenantRunningStart(Tenant tenant)` : Executed at the start of the process for the tenant and expose the `Tenant` object
@@ -34,13 +36,13 @@ This class needs to override some methods :
 - `OnTenantRunningEnd(Tenant tenant)` : Executed at the end of the process for the tenant and expose the `Tenant` object
 - `OnEnd()` : Executed at the very end of the process, can be used to export a file of make an external call
 
-At the moment, the process to use the process is the one which is in the Program.cs from the [example] (Examples/V1/SharePointRunner.LauncherV1).
+At the moment, the process to use the process is the one which is in the Program.cs from the [example](Examples/V1/SharePointRunner.LauncherV1).
 
 In the future, I want to have one or many DLLs with contain the receiver and declared in a standard configuration file (XML nor JSON) and call the process with the configuration file (and the DLLs), without any program (but keep the possibility fo doing that way).
 In addition, I would create PowerShell CmdLets to call the process from a script.
 
 ## Examples
-I wrote a few examples from past experiences, availables in examples [here] (Examples)
+I wrote a few examples from past experiences, availables in examples [here](Examples)
 
 - `GroupsReceiver` : A receiver which export to CSV file the users of groups which contains one of the value (from groupNames) in their name
 - `ManagedMetadataReceiver` : A receiver which export all the managed metadata from the SharePoint term store (unfinished)
