@@ -53,15 +53,6 @@ namespace SharePointRunner.LauncherV1
 
     public class GroupsReceiver : Receiver
     {
-        /// <summary>
-        /// Get running levels declared by the receiver
-        /// </summary>
-        /// <returns>List of running levels</returns>
-        public override List<RunningLevel> GetRunningLevels()
-        {
-            return GetRunningLevels<GroupsReceiver>();
-        }
-
         // TODO V2 To parameters
         List<string> groupNames = new List<string>() { "owners" };
 

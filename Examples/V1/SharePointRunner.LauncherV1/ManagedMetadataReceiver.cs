@@ -20,15 +20,6 @@ namespace SharePointRunner.LauncherV1
 
     public class ManagedMetadataReceiver : Receiver
     {
-        /// <summary>
-        /// Get running levels declared by the receiver
-        /// </summary>
-        /// <returns>List of running levels</returns>
-        public override List<RunningLevel> GetRunningLevels()
-        {
-            return GetRunningLevels<ManagedMetadataReceiver>();
-        }
-
         public override void OnTenantRunningStart(Tenant tenant)
         {
             // TODO V2 ManagedMetadataReceiver

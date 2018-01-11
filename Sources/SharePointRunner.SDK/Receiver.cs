@@ -1,5 +1,6 @@
 ﻿using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -42,20 +43,18 @@ namespace SharePointRunner.SDK
         /// <param name="methodName">Name of the method</param>
         /// <param name="includeAbstractDeclaration">True if an abstract implementation should be included, False if not (False by default)</param>
         /// <returns>True if the type has his own declaration of the method, False if not</returns>
-        private bool IsMethodOverriden<T>(string methodName, bool includeAbstractDeclaration = false)
+        private bool IsMethodOverriden(Type type, string methodName, bool includeAbstractDeclaration = false)
         {
-            MethodInfo method = typeof(T).GetMethod(methodName);
+            MethodInfo method = type.GetMethod(methodName);
 
             return method.DeclaringType != method.GetBaseDefinition().DeclaringType && !method.IsAbstract;
         }
 
-        // TODO V3 Do better with no implemntation in inherited classes, if possible
         /// <summary>
         /// Get the running levels implemented by the receiver
         /// </summary>
-        /// <typeparam name="T">Type of the receiver</typeparam>
         /// <returns>List of running levels</returns>
-        protected List<RunningLevel> GetRunningLevels<T>() where T : Receiver
+        public List<RunningLevel> GetRunningLevels()
         {
             if (RunningLevels == null)
             {
@@ -63,7 +62,7 @@ namespace SharePointRunner.SDK
 
                 foreach (KeyValuePair<RunningLevel, List<string>> runningMethods in RunningMethodsMap)
                 {
-                    if (runningMethods.Value.Any(m => IsMethodOverriden<T>(m)))
+                    if (runningMethods.Value.Any(m => IsMethodOverriden(GetType(), m)))
                     {
                         RunningLevels.Add(runningMethods.Key);
                     }
@@ -72,12 +71,6 @@ namespace SharePointRunner.SDK
 
             return RunningLevels;
         }
-
-        /// <summary>
-        /// Get the running levels implemented by the receiver
-        /// </summary>
-        /// <returns>List of running levels</returns>
-        public abstract List<RunningLevel> GetRunningLevels();
 
         /// <summary>
         /// Event at the start of process

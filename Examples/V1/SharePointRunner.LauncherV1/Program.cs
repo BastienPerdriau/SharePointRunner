@@ -12,9 +12,15 @@ namespace SharePointRunner.LauncherV1
             // TODO V2 Add logs (file, console, trace)
             // TODO V3 Customize logs (activate or not, log level, file location...)
             // TODO V4 Create PS Cmdlets
-            string tenantUrl = "";
-            string adminLogin = "";
-            string adminPassword = "";
+
+            if (args.Length < 3)
+            {
+                return;
+            }
+
+            string tenantUrl = args[0];
+            string adminLogin = args[1];
+            string adminPassword = args[2];
 
             SecureString pwd = new SecureString();
 

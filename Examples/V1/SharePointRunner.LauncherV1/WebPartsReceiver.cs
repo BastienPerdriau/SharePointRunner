@@ -54,15 +54,6 @@ namespace SharePointRunner.LauncherV1
 
     public class WebPartsReceiver : Receiver
     {
-        /// <summary>
-        /// Get running levels declared by the receiver
-        /// </summary>
-        /// <returns>List of running levels</returns>
-        public override List<RunningLevel> GetRunningLevels()
-        {
-            return GetRunningLevels<WebPartsReceiver>();
-        }
-
         private CsvWriterWrapper<PageInfo, PageInfoMap> webPartsFileWriter;
 
         private IEnumerable<ListItem> LoadItems(List list, string viewXml, List<string> viewFields, params Expression<Func<ListItem, object>>[] properties)

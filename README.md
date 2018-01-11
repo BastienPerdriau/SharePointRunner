@@ -12,15 +12,6 @@ It let me do only thing when a new mission / need comes : Get the informations f
 The first step is to create a class which inherit from the `Receiver` class, from `SharePointRunner.SDK`.
 This class needs to override some methods :
 
-- The getter of running levels for the receiver (I definitely want to move this internally)
-```csharp
-public override List<RunningLevel> GetRunningLevels()
-{
-	// T is the type of the receiver class
-	return GetRunningLevels<T>();
-}
-```
-
 - `OnStart()` : Executed at the very start of the process, can be used to setup a file
 - `OnTenantRunningStart(Tenant tenant)` : Executed at the start of the process for the tenant and expose the `Tenant` object
 - `OnSiteCollectionRunningStart(Site site, Web rootSite)` : Executed at the start of the process for a site collection and expose the `Site` object and the `Web` for the root site

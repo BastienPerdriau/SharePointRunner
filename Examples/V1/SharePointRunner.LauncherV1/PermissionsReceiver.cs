@@ -136,15 +136,6 @@ namespace SharePointRunner.LauncherV1
     /// </summary>
     public class PermissionsReceiver : Receiver
     {
-        /// <summary>
-        /// Get running levels declared by the receiver
-        /// </summary>
-        /// <returns>List of running levels</returns>
-        public override List<RunningLevel> GetRunningLevels()
-        {
-            return GetRunningLevels<PermissionsReceiver>();
-        }
-
         private List<int> groupIds;
 
         private CsvWriterWrapper<SecurableObjectInfo, SecurableObjectInfoMap> permissionsFileWriter;

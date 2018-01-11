@@ -53,15 +53,6 @@ namespace SharePointRunner.LauncherV1
 
     public class WebUsageReceiver : Receiver
     {
-        /// <summary>
-        /// Get running levels declared by the receiver
-        /// </summary>
-        /// <returns>List of running levels</returns>
-        public override List<RunningLevel> GetRunningLevels()
-        {
-            return GetRunningLevels<WebUsageReceiver>();
-        }
-
         private CsvWriterWrapper<WebUsageInfo, WebUsageInfoMap> webUsageFileWriter;
         private WebUsageInfo webUsageInfo;
 
