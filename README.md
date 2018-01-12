@@ -10,7 +10,7 @@ It let me do only thing when a new mission / need comes : Get the informations f
 
 ## Usage
 The first step is to create a class which inherit from the `Receiver` class, from `SharePointRunner.SDK`.
-This class needs to override some methods :
+This class can override these methods :
 
 - `OnStart()` : Executed at the very start of the process, can be used to setup a file
 - `OnTenantRunningStart(Tenant tenant)` : Executed at the start of the process for the tenant and expose the `Tenant` object
@@ -44,14 +44,15 @@ I wrote a few examples from past experiences, availables in examples [here](Exam
 ## Close-future features / improvments
 These features are mandatory to have a real usable tool for a large panel of use cases
 
+- Architecture improvnents to manage différents levels of running (from tenant to file, and maybe managed metadata too)
 - Manage folder, list items and files
 - Finish the example "ManagedMetadataReceiver"
 - Create NuGet packages (one with the SDK, one with the process)
-- Separate receivers from the program which call the process to DLL
-- Add logs, the is none at the moment (Log4Net, to console, file, trace, all configurable)
+- Add logs, there is none at the moment (Log4Net, to console, file, trace, all configurable)
 - Several tehcnical improvments
 
 ## Future features / improvents
 
+- Separate receivers from the program which call the process to DLL
 - Create PowerShell CmdLets to call the process with a standard configuration file (XML nor JSON)
-- Others technical improvnents (and some architecture)
+- Others technical improvnents
