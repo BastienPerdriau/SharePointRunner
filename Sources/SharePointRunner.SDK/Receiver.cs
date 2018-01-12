@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace SharePointRunner.SDK
 {
@@ -13,20 +14,6 @@ namespace SharePointRunner.SDK
     public abstract class Receiver
     {
         /// <summary>
-        /// Dictionnary of methods of the receiver corresponding to each running level
-        /// </summary>
-        private Dictionary<RunningLevel, List<string>> RunningMethodsMap = new Dictionary<RunningLevel, List<string>>()
-        {
-            { RunningLevel.Tenant, new List<string>() { "OnTenantRunningStart", "OnTenantRunningEnd" } },
-            { RunningLevel.SiteCollection, new List<string>() { "OnSiteCollectionRunningStart", "OnSiteCollectionRunningEnd" } },
-            { RunningLevel.Site, new List<string>() { "OnSiteRunningStart", "OnSiteRunningEnd", "OnSiteRunningEndAfterSubSites" } },
-            { RunningLevel.List, new List<string>() { "OnListRunningStart", "OnListRunningEnd" } },
-            { RunningLevel.Folder, new List<string>() { "OnFolderRunning" } },
-            { RunningLevel.ListItem, new List<string>() { "OnListItemRunning" } },
-            { RunningLevel.File, new List<string>() { "OnFileRunning" } }
-        };
-
-        /// <summary>
         /// True if the receiver needs to include sub sites when running, False if not
         /// </summary>
         public virtual bool IncludeSubSites { get; set; } = true;
@@ -34,12 +21,11 @@ namespace SharePointRunner.SDK
         /// <summary>
         /// List of running levels implemented by the receiver
         /// </summary>
-        private List<RunningLevel> RunningLevels { get; set; }
+        private List<RunningLevel> runningLevels;
 
         /// <summary>
         /// Know if the type has his own declaration of the method
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
         /// <param name="methodName">Name of the method</param>
         /// <param name="includeAbstractDeclaration">True if an abstract implementation should be included, False if not (False by default)</param>
         /// <returns>True if the type has his own declaration of the method, False if not</returns>
@@ -47,6 +33,17 @@ namespace SharePointRunner.SDK
         {
             MethodInfo method = type.GetMethod(methodName);
 
+            return IsMethodOverriden(method, includeAbstractDeclaration);
+        }
+
+        /// <summary>
+        /// Know if the method is overriden
+        /// </summary>
+        /// <param name="method">Method</param>
+        /// <param name="includeAbstractDeclaration">True if an abstract implementation should be included, False if not (False by default)</param>
+        /// <returns>True if the type has his own declaration of the method, False if not</returns>
+        private bool IsMethodOverriden(MethodInfo method, bool includeAbstractDeclaration = false)
+        {
             return method.DeclaringType != method.GetBaseDefinition().DeclaringType && !method.IsAbstract;
         }
 
@@ -56,20 +53,31 @@ namespace SharePointRunner.SDK
         /// <returns>List of running levels</returns>
         public List<RunningLevel> GetRunningLevels()
         {
-            if (RunningLevels == null)
+            if (runningLevels == null)
             {
-                RunningLevels = new List<RunningLevel>();
+                // Initialize the list of current receiver running levels
+                runningLevels = new List<RunningLevel>();
 
-                foreach (KeyValuePair<RunningLevel, List<string>> runningMethods in RunningMethodsMap)
+                // Get all the running levels string names
+                List<RunningLevelEnum> levels = Enum.GetValues(typeof(RunningLevelEnum)).Cast<RunningLevelEnum>().ToList();
+
+                // Get all the names of the overriden methods by the current type
+                List<string> methodNames = GetType().GetMethods().Where(m => IsMethodOverriden(m)).Select(m => m.Name).ToList();
+
+                foreach (RunningLevelEnum level in levels)
                 {
-                    if (runningMethods.Value.Any(m => IsMethodOverriden(GetType(), m)))
+                    // Initialize the regex with the current running level
+                    Regex regex = new Regex($"On{level}Running[a-zA-Z]*");
+
+                    // If at least one of the methods matches the regex, add the current running level to the list
+                    if (methodNames.Any(m => regex.IsMatch(m)))
                     {
-                        RunningLevels.Add(runningMethods.Key);
+                        runningLevels.Add(RunningLevel.Values[level]);
                     }
                 }
             }
 
-            return RunningLevels;
+            return runningLevels;
         }
 
         /// <summary>

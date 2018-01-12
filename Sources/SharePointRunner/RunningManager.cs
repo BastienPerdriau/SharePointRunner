@@ -39,19 +39,19 @@ namespace SharePointRunner
         public void Run()
         {
             List<Runner> runners;
-            switch (StartingRunningLevel)
+            switch (StartingRunningLevel.RunningLevelEnum)
             {
-                case RunningLevel.Tenant:
+                case RunningLevelEnum.Tenant:
                     // If Tenant, must be only one url
                     runners = new List<Runner>() { GetTenantRunner(Urls.FirstOrDefault()) };
                     break;
-                case RunningLevel.SiteCollection:
+                case RunningLevelEnum.SiteCollection:
                     runners = new List<Runner>(GetSiteCollectionRunners(Urls));
                     break;
-                case RunningLevel.Site:
+                case RunningLevelEnum.Site:
                     runners = new List<Runner>(GetSiteRunners(Urls));
                     break;
-                case RunningLevel.List:
+                case RunningLevelEnum.List:
                     runners = new List<Runner>(GetListRunners(Urls));
                     break;
                 default:
