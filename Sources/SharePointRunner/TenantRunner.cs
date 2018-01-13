@@ -57,7 +57,7 @@ namespace SharePointRunner
                     siteCollectionRunners.Add(new SiteCollectionRunner(Manager, ctx, ctx.Site));
                 }
 
-                siteCollectionRunners.ForEach(a => a.Process());
+                siteCollectionRunners.ForEach(r => r.Process());
             }
 
             // OnTenantRunningEnd

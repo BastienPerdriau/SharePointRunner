@@ -1,5 +1,6 @@
 ﻿using Microsoft.SharePoint.Client;
 using SharePointRunner.SDK;
+using System.Linq;
 
 namespace SharePointRunner
 {
@@ -23,7 +24,27 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            // TODO V1 ListItem Process
+            Context.Load(Element);
+            Context.ExecuteQuery();
+
+            // OnListItemRunning
+            ActiveReceivers.ForEach(r => r.OnListItemRunning(Element));
+
+            // If at least one receiver run files
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.File)))
+            {
+                Context.Load(Element,
+                    li => li.File);
+                Context.ExecuteQuery();
+
+                // If there is a file
+                if (Element.File.Exists)
+                {
+                    // Run file on current list item
+                    FileRunner fileRunner = new FileRunner(Manager, Context, Element.File);
+                    fileRunner.Process();
+                }
+            }
         }
     }
 }

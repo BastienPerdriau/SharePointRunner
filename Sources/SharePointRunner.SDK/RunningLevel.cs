@@ -19,41 +19,48 @@ namespace SharePointRunner.SDK
     {
         public static readonly Dictionary<RunningLevelEnum, RunningLevel> Values = new Dictionary<RunningLevelEnum, RunningLevel>()
         {
-            { RunningLevelEnum.Tenant, Tenant },
-            { RunningLevelEnum.SiteCollection, SiteCollection },
-            { RunningLevelEnum.Site, Site },
-            { RunningLevelEnum.List, List },
-            { RunningLevelEnum.View, View },
-            { RunningLevelEnum.Folder, Folder },
-            { RunningLevelEnum.ListItem, ListItem },
-            { RunningLevelEnum.File, File },
+            { RunningLevelEnum.Tenant, new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Tenant, Children = new List<RunningLevelEnum>() { RunningLevelEnum.SiteCollection } } },
+            { RunningLevelEnum.SiteCollection, new RunningLevel() { RunningLevelEnum = RunningLevelEnum.SiteCollection, Children = new List<RunningLevelEnum>() { RunningLevelEnum.Site }} },
+            { RunningLevelEnum.Site, new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Site, Recursive = true, Children = new List<RunningLevelEnum>() { RunningLevelEnum.List }} },
+            { RunningLevelEnum.List, new RunningLevel() { RunningLevelEnum = RunningLevelEnum.List, Children = new List<RunningLevelEnum>() { RunningLevelEnum.View, RunningLevelEnum.Folder, RunningLevelEnum.ListItem }} },
+            { RunningLevelEnum.View, new RunningLevel() { RunningLevelEnum = RunningLevelEnum.View } },
+            { RunningLevelEnum.Folder, new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Folder, Recursive = true, Children = new List<RunningLevelEnum>() { RunningLevelEnum.ListItem }} },
+            { RunningLevelEnum.ListItem, new RunningLevel() { RunningLevelEnum = RunningLevelEnum.ListItem, Children = new List<RunningLevelEnum>() { RunningLevelEnum.File }} },
+            { RunningLevelEnum.File, new RunningLevel() { RunningLevelEnum = RunningLevelEnum.File } }
         };
 
         public RunningLevelEnum RunningLevelEnum { get; internal set; }
 
-        public List<RunningLevelEnum> Children { get; set; } = new List<RunningLevelEnum>();
+        public bool Recursive { get; internal set; } = false;
 
-        private RunningLevel() { }
+        public List<RunningLevelEnum> Children { get; internal set; } = new List<RunningLevelEnum>();
 
-        public static RunningLevel Tenant => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Tenant, Children = new List<RunningLevelEnum>() { RunningLevelEnum.SiteCollection } };
+        public RunningLevel() { }
 
-        public static RunningLevel SiteCollection => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.SiteCollection, Children = new List<RunningLevelEnum>() { RunningLevelEnum.Site } };
+        public static RunningLevel Tenant => Values[RunningLevelEnum.Tenant];
 
-        public static RunningLevel Site => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Site, Children = new List<RunningLevelEnum>() { RunningLevelEnum.Site, RunningLevelEnum.List } };
+        public static RunningLevel SiteCollection => Values[RunningLevelEnum.SiteCollection];
 
-        public static RunningLevel List => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.List, Children = new List<RunningLevelEnum>() { RunningLevelEnum.View, RunningLevelEnum.Folder, RunningLevelEnum.ListItem } };
+        public static RunningLevel Site => Values[RunningLevelEnum.Site];
 
-        public static RunningLevel View => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.View };
+        public static RunningLevel List => Values[RunningLevelEnum.List];
 
-        public static RunningLevel Folder => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Folder, Children = new List<RunningLevelEnum>() { RunningLevelEnum.Folder, RunningLevelEnum.ListItem } };
+        public static RunningLevel View => Values[RunningLevelEnum.View];
 
-        public static RunningLevel ListItem => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.ListItem, Children = new List<RunningLevelEnum>() { RunningLevelEnum.File } };
+        public static RunningLevel Folder => Values[RunningLevelEnum.Folder];
 
-        public static RunningLevel File => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.File };
+        public static RunningLevel ListItem => Values[RunningLevelEnum.ListItem];
+
+        public static RunningLevel File => Values[RunningLevelEnum.File];
 
         public bool HasChild(RunningLevel otherRunningLevel)
         {
             return Children.Contains(otherRunningLevel.RunningLevelEnum) || Children.Any(l => Values[l].HasChild(otherRunningLevel));
+        }
+
+        public override string ToString()
+        {
+            return RunningLevelEnum.ToString();
         }
 
         public override int GetHashCode()

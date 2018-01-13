@@ -18,6 +18,9 @@ namespace SharePointRunner.LauncherV1
                 return;
             }
 
+            string folders = CamlQuery.CreateAllFoldersQuery().ViewXml;
+            string items = CamlQuery.CreateAllItemsQuery().ViewXml;
+
             string tenantUrl = args[0];
             string adminLogin = args[1];
             string adminPassword = args[2];
@@ -34,7 +37,7 @@ namespace SharePointRunner.LauncherV1
             RunningManager manager = new RunningManager()
             {
                 Credentials = cred,
-                StartingRunningLevel = RunningLevel.Tenant,
+                StartingRunningLevel = RunningLevelEnum.Tenant,
             };
 
             manager.Urls.Add(tenantUrl);

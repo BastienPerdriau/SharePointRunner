@@ -23,7 +23,11 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            // TODO V1 File Process
+            Context.Load(Element);
+            Context.ExecuteQuery();
+
+            // OnFileRunning
+            ActiveReceivers.ForEach(r => r.OnFileRunning(Element));
         }
     }
 }

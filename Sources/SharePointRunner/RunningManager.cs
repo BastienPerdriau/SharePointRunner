@@ -31,7 +31,7 @@ namespace SharePointRunner
         /// <summary>
         /// Starting running level
         /// </summary>
-        public RunningLevel StartingRunningLevel { get; set; } = RunningLevel.Tenant;
+        public RunningLevelEnum StartingRunningLevel { get; set; } = RunningLevelEnum.Tenant;
 
         /// <summary>
         /// Start a run
@@ -39,7 +39,7 @@ namespace SharePointRunner
         public void Run()
         {
             List<Runner> runners;
-            switch (StartingRunningLevel.RunningLevelEnum)
+            switch (StartingRunningLevel)
             {
                 case RunningLevelEnum.Tenant:
                     // If Tenant, must be only one url
@@ -62,7 +62,7 @@ namespace SharePointRunner
             Receivers.ForEach(r => r.OnStart());
 
             // Launch runners
-            runners.ForEach(a => a.Process());
+            runners.ForEach(r => r.Process());
 
             // OnEnd
             Receivers.ForEach(r => r.OnEnd());

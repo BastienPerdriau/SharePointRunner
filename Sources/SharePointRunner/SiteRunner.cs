@@ -71,7 +71,7 @@ namespace SharePointRunner
                     listRunners.Add(new ListRunner(Manager, Context, list));
                 }
 
-                listRunners.ForEach(a => a.Process());
+                listRunners.ForEach(r => r.Process());
             }
 
             // OnSiteRunningEnd
@@ -81,14 +81,6 @@ namespace SharePointRunner
             if (Manager.Receivers.Any(r => r.IncludeSubSites))
             {
                 // Crawl Subsites
-                // -----------------------------------------------------------
-                Context.Load(Element, e => e.Features.Include(
-                    f => f.DefinitionId,
-                    f => f.DisplayName));
-
-                Context.ExecuteQuery();
-                // -----------------------------------------------------------
-
                 Context.Load(Element.Webs);
                 Context.ExecuteQuery();
 
@@ -98,7 +90,7 @@ namespace SharePointRunner
                     siteRunners.Add(new SiteRunner(Manager, Context, subWeb, true));
                 }
 
-                siteRunners.ForEach(a => a.Process());
+                siteRunners.ForEach(r => r.Process());
 
                 // OnSiteRunningEndAfterSubSites
                 ActiveReceivers.ForEach(r => r.OnSiteRunningEndAfterSubSites(Element));
