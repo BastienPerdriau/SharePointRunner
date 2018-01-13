@@ -8,22 +8,16 @@ namespace SharePointRunner
     internal class ListRunner : Runner<List>
     {
         /// <summary>
-        /// Running level
-        /// </summary>
-        public override RunningLevel RunningLevel => RunningLevel.List;
-
-        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
         /// <param name="list">List</param>
-        public ListRunner(RunningManager runningManager, ClientContext context, List list) : base(runningManager, context, list) { }
+        public ListRunner(RunningManager runningManager, ClientContext context, List list) : base(runningManager, context, list, RunningLevelEnum.List) { }
 
         /// <summary>
         /// Action for this SharePoint list
         /// </summary>
-
         public override void Process()
         {
             Context.Load(Element);
@@ -32,15 +26,31 @@ namespace SharePointRunner
             // OnListRunningStart
             ActiveReceivers.ForEach(r => r.OnListRunningStart(Element));
 
+            // If at least one receiver run views
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.View)))
+            {
+                // Crawl views
+                Context.Load(Element.Views);
+                Context.ExecuteQuery();
+
+                List<ViewRunner> viewRunners = new List<ViewRunner>();
+                foreach (View view in Element.Views)
+                {
+                    viewRunners.Add(new ViewRunner(Manager, Context, view));
+                }
+
+                viewRunners.ForEach(r => r.Process());
+            }
+
             // If at least one receiver run folders or deeper
-            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.Folder)))
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.Folder)))
             {
                 // TODO V2 Manage large lists
                 CamlQuery foldersQuery = new CamlQuery()
                 {
                     ViewXml = "<View><Query><Where><Eq><FieldRef Name='FSObjType' /><Value Type='Integer'>1</Value></Eq></Where></Query></View>"
                 };
-                
+
                 ListItemCollection folders = Element.GetItems(foldersQuery);
                 Context.Load(folders,
                     coll => coll.Include(
@@ -55,7 +65,7 @@ namespace SharePointRunner
 
                 folderRunners.ForEach(r => r.Process());
             }
-            else if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.ListItem)))
+            else if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.ListItem)))
             {
                 // TODO V2 Manage large lists
                 CamlQuery itemsQuery = new CamlQuery()

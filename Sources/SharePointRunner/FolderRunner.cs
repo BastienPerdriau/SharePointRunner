@@ -8,17 +8,12 @@ namespace SharePointRunner
     internal class FolderRunner : Runner<Folder>
     {
         /// <summary>
-        /// Running level
-        /// </summary>
-        public override RunningLevel RunningLevel => RunningLevel.Folder;
-
-        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
         /// <param name="folder">Folder</param>
-        public FolderRunner(RunningManager runningManager, ClientContext context, Folder folder) : base(runningManager, context, folder) { }
+        public FolderRunner(RunningManager runningManager, ClientContext context, Folder folder) : base(runningManager, context, folder, RunningLevelEnum.Folder) { }
 
         /// <summary>
         /// Action for this SharePoint folder
@@ -33,7 +28,7 @@ namespace SharePointRunner
             ActiveReceivers.ForEach(r => r.OnFolderRunning(Element));
 
             // If at least one receiver run list items of deeper
-            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.ListItem)))
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.ListItem)))
             {
                 // TODO V2 Manage large lists
                 CamlQuery itemsQuery = new CamlQuery()

@@ -21,11 +21,39 @@ namespace SharePointRunner.SDK
         /// <summary>
         /// List of running levels implemented by the receiver
         /// </summary>
-        private List<RunningLevel> runningLevels;
+        private List<RunningLevelEnum> runningLevels;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Receiver()
+        {
+            // Initialize the list of current receiver running levels
+            runningLevels = new List<RunningLevelEnum>();
+
+            // Get all the running levels string names
+            List<RunningLevelEnum> levels = Enum.GetValues(typeof(RunningLevelEnum)).Cast<RunningLevelEnum>().ToList();
+
+            // Get all the names of the overriden methods by the current type
+            List<string> methodNames = GetType().GetMethods().Where(m => IsMethodOverriden(m)).Select(m => m.Name).ToList();
+
+            foreach (RunningLevelEnum level in levels)
+            {
+                // Initialize the regex with the current running level
+                Regex regex = new Regex($"On{level}Running[a-zA-Z]*");
+
+                // If at least one of the methods matches the regex, add the current running level to the list
+                if (methodNames.Any(m => regex.IsMatch(m)))
+                {
+                    runningLevels.Add(level);
+                }
+            }
+        }
 
         /// <summary>
         /// Know if the type has his own declaration of the method
         /// </summary>
+        /// <param name="type">The type to check</param>
         /// <param name="methodName">Name of the method</param>
         /// <param name="includeAbstractDeclaration">True if an abstract implementation should be included, False if not (False by default)</param>
         /// <returns>True if the type has his own declaration of the method, False if not</returns>
@@ -45,39 +73,6 @@ namespace SharePointRunner.SDK
         private bool IsMethodOverriden(MethodInfo method, bool includeAbstractDeclaration = false)
         {
             return method.DeclaringType != method.GetBaseDefinition().DeclaringType && !method.IsAbstract;
-        }
-
-        /// <summary>
-        /// Get the running levels implemented by the receiver
-        /// </summary>
-        /// <returns>List of running levels</returns>
-        public List<RunningLevel> GetRunningLevels()
-        {
-            if (runningLevels == null)
-            {
-                // Initialize the list of current receiver running levels
-                runningLevels = new List<RunningLevel>();
-
-                // Get all the running levels string names
-                List<RunningLevelEnum> levels = Enum.GetValues(typeof(RunningLevelEnum)).Cast<RunningLevelEnum>().ToList();
-
-                // Get all the names of the overriden methods by the current type
-                List<string> methodNames = GetType().GetMethods().Where(m => IsMethodOverriden(m)).Select(m => m.Name).ToList();
-
-                foreach (RunningLevelEnum level in levels)
-                {
-                    // Initialize the regex with the current running level
-                    Regex regex = new Regex($"On{level}Running[a-zA-Z]*");
-
-                    // If at least one of the methods matches the regex, add the current running level to the list
-                    if (methodNames.Any(m => regex.IsMatch(m)))
-                    {
-                        runningLevels.Add(RunningLevel.Values[level]);
-                    }
-                }
-            }
-
-            return runningLevels;
         }
 
         /// <summary>
@@ -111,19 +106,25 @@ namespace SharePointRunner.SDK
         public virtual void OnListRunningStart(List list) { }
 
         /// <summary>
-        /// Event at the start of handling a folder
+        /// Event to handle a view
+        /// </summary>
+        /// <param name="view">View</param>
+        public virtual void OnViewRunning(View view) { }
+
+        /// <summary>
+        /// Event to handle a folder
         /// </summary>
         /// <param name="folder">Folder</param>
         public virtual void OnFolderRunning(Folder folder) { }
 
         /// <summary>
-        /// Event at the start of handling a list item
+        /// Event to handle a list item
         /// </summary>
         /// <param name="listItem">List item</param>
         public virtual void OnListItemRunning(ListItem listItem) { }
 
         /// <summary>
-        /// Event at the start of handling a site
+        /// Event to handle a file
         /// </summary>
         /// <param name="file">File</param>
         public virtual void OnFileRunning(File file) { }
@@ -169,13 +170,13 @@ namespace SharePointRunner.SDK
         /// </summary>
         /// <param name="runningLevel">Running level</param>
         /// <returns>True if the receiver should be called, False if not</returns>
-        public bool IsReceiverCalled(RunningLevel runningLevel) => GetRunningLevels().Contains(runningLevel);
+        public bool IsReceiverCalled(RunningLevelEnum runningLevel) => runningLevels.Contains(runningLevel);
 
         /// <summary>
         /// Know if the receiver will be called specific running level nor one of next level
         /// </summary>
         /// <param name="runningLevel">Running level</param>
         /// <returns>True if the receiver will be called, False if not</returns>
-        public bool IsReceiverCalledOrDeeper(RunningLevel runningLevel) => GetRunningLevels().Any(l => l >= runningLevel);
+        public bool IsReceiverCalledOrDeeper(RunningLevelEnum runningLevel) => runningLevels.Any(l => RunningLevel.Values[l] >= RunningLevel.Values[runningLevel]);
     }
 }

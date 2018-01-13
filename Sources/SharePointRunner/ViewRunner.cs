@@ -3,26 +3,27 @@ using SharePointRunner.SDK;
 
 namespace SharePointRunner
 {
-    internal class FileRunner : Runner<File>
+
+    internal class ViewRunner : Runner<View>
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
-        /// <param name="file">File</param>
-        public FileRunner(RunningManager runningManager, ClientContext context, File file) : base(runningManager, context, file, RunningLevelEnum.File) { }
+        /// <param name="view">View</param>
+        public ViewRunner(RunningManager runningManager, ClientContext context, View view) : base(runningManager, context, view, RunningLevelEnum.View) { }
 
         /// <summary>
-        /// Action for this SharePoint file
+        /// Action for this SharePoint view
         /// </summary>
         public override void Process()
         {
             Context.Load(Element);
             Context.ExecuteQuery();
 
-            // OnFileRunning
-            ActiveReceivers.ForEach(r => r.OnFileRunning(Element));
+            // OnViewRunning
+            ActiveReceivers.ForEach(r => r.OnViewRunning(Element));
         }
     }
 }

@@ -7,17 +7,12 @@ namespace SharePointRunner
     internal class ListItemRunner : Runner<ListItem>
     {
         /// <summary>
-        /// Running level
-        /// </summary>
-        public override RunningLevel RunningLevel => RunningLevel.ListItem;
-
-        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
         /// <param name="listItem">List item</param>
-        public ListItemRunner(RunningManager runningManager, ClientContext context, ListItem listItem) : base(runningManager, context, listItem) { }
+        public ListItemRunner(RunningManager runningManager, ClientContext context, ListItem listItem) : base(runningManager, context, listItem, RunningLevelEnum.ListItem) { }
 
         /// <summary>
         /// Action for this SharePoint list item
@@ -31,7 +26,7 @@ namespace SharePointRunner
             ActiveReceivers.ForEach(r => r.OnListItemRunning(Element));
 
             // If at least one receiver run files
-            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.File)))
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.File)))
             {
                 Context.Load(Element,
                     li => li.File);

@@ -39,7 +39,7 @@ I wrote a few examples from past experiences, availables in examples [here](Exam
 - `ManagedMetadataReceiver` : A receiver which export all the managed metadata from the SharePoint term store (unfinished)
 - `PermissionsReceiver` : A receiver which crawl every site collection, sub sites and lists (and possibly folders and items) to know if they have inheritance broke and get the users and the permission level granted
 - `WebPartsReceiver` : A receiver which crawl every site and sub sites to get all pages (from Site Pages or Pages) and the number of web parts on each one
-- `WebUsage` : A receiver which get the item the most recently item from each site and sub site
+- `WebUsageReceiver` : A receiver which get the item the most recently item from each site and sub site
 
 ## Close-future features / improvments
 These features are mandatory to have a real usable tool for a large panel of use cases
