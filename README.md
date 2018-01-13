@@ -44,15 +44,15 @@ I wrote a few examples from past experiences, availables in examples [here](Exam
 ## Close-future features / improvments
 These features are mandatory to have a real usable tool for a large panel of use cases
 
-- Architecture improvnents to manage différents levels of running (from tenant to file, and maybe managed metadata too)
-- Manage folder, list items and files
 - Finish the example "ManagedMetadataReceiver"
 - Create NuGet packages (one with the SDK, one with the process)
 - Add logs, there is none at the moment (Log4Net, to console, file, trace, all configurable)
+- Add unit tests
 - Several tehcnical improvments
 
 ## Future features / improvents
 
+- Maybe manage Managed Metadata
 - Separate receivers from the program which call the process to DLL
 - Create PowerShell CmdLets to call the process with a standard configuration file (XML nor JSON)
 - Others technical improvnents
