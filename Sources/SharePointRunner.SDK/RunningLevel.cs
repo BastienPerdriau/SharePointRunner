@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace SharePointRunner.SDK
@@ -32,52 +31,52 @@ namespace SharePointRunner.SDK
 
         public RunningLevelEnum RunningLevelEnum { get; internal set; }
 
-        public List<RunningLevel> Children { get; set; } = new List<RunningLevel>();
+        public List<RunningLevelEnum> Children { get; set; } = new List<RunningLevelEnum>();
 
         private RunningLevel() { }
 
-        public static RunningLevel Tenant => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Tenant, Children = new List<RunningLevel>() { SiteCollection } };
+        public static RunningLevel Tenant => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Tenant, Children = new List<RunningLevelEnum>() { RunningLevelEnum.SiteCollection } };
 
-        public static RunningLevel SiteCollection => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.SiteCollection, Children = new List<RunningLevel>() { Site } };
+        public static RunningLevel SiteCollection => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.SiteCollection, Children = new List<RunningLevelEnum>() { RunningLevelEnum.Site } };
 
-        public static RunningLevel Site => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Site, Children = new List<RunningLevel>() { Site, List } };
+        public static RunningLevel Site => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Site, Children = new List<RunningLevelEnum>() { RunningLevelEnum.Site, RunningLevelEnum.List } };
 
-        public static RunningLevel List => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.List, Children = new List<RunningLevel>() { View, Folder, ListItem } };
+        public static RunningLevel List => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.List, Children = new List<RunningLevelEnum>() { RunningLevelEnum.View, RunningLevelEnum.Folder, RunningLevelEnum.ListItem } };
 
         public static RunningLevel View => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.View };
 
-        public static RunningLevel Folder => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Folder, Children = new List<RunningLevel>() { Folder, ListItem } };
+        public static RunningLevel Folder => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Folder, Children = new List<RunningLevelEnum>() { RunningLevelEnum.Folder, RunningLevelEnum.ListItem } };
 
-        public static RunningLevel ListItem => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.ListItem, Children = new List<RunningLevel>() { File } };
+        public static RunningLevel ListItem => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.ListItem, Children = new List<RunningLevelEnum>() { RunningLevelEnum.File } };
 
         public static RunningLevel File => new RunningLevel() { RunningLevelEnum = RunningLevelEnum.File };
 
         public bool HasChild(RunningLevel otherRunningLevel)
         {
-            return Children.Contains(otherRunningLevel) || Children.Any(l => l.HasChild(otherRunningLevel));
+            return Children.Contains(otherRunningLevel.RunningLevelEnum) || Children.Any(l => Values[l].HasChild(otherRunningLevel));
         }
 
-        public bool Equals(RunningLevel otherRunningLevel)
+        public override int GetHashCode()
         {
-            if (ReferenceEquals(otherRunningLevel, null))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, otherRunningLevel))
-            {
-                return true;
-            }
-            
-            return RunningLevelEnum == otherRunningLevel.RunningLevelEnum;
+            return RunningLevelEnum.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj);
-        }
+            if (obj == null)
+            {
+                return false;
+            }
 
-        // TODO V1 Override GetHashCode()
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            RunningLevel otherRunningLevel = (RunningLevel)obj;
+
+            return RunningLevelEnum == otherRunningLevel.RunningLevelEnum;
+        }
 
         public static bool operator ==(RunningLevel r1, RunningLevel r2)
         {
