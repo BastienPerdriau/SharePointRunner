@@ -11,7 +11,7 @@ namespace SharePointRunner
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
         /// <param name="file">File</param>
-        public FileRunner(RunningManager runningManager, ClientContext context, File file) : base(runningManager, context, file, RunningLevelEnum.File) { }
+        public FileRunner(RunningManager runningManager, ClientContext context, File file) : base(runningManager, context, file, RunningLevel.File) { }
 
         /// <summary>
         /// Action for this SharePoint file

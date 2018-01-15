@@ -12,7 +12,7 @@ namespace SharePointRunner
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
         /// <param name="site">Site collection</param>
-        public SiteCollectionRunner(RunningManager runningManager, ClientContext context, Site site) : base(runningManager, context, site, RunningLevelEnum.SiteCollection) { }
+        public SiteCollectionRunner(RunningManager runningManager, ClientContext context, Site site) : base(runningManager, context, site, RunningLevel.SiteCollection) { }
 
         /// <summary>
         /// Action for this SharePoint site collection
@@ -27,7 +27,7 @@ namespace SharePointRunner
             ActiveReceivers.ForEach(r => r.OnSiteCollectionRunningStart(Element, Element.RootWeb));
 
             // If at least one receiver run sites or deeper
-            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.Site)))
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.Site)))
             {
                 // Run site on current root site
                 SiteRunner siteRunner = new SiteRunner(Manager, Context, Element.RootWeb);

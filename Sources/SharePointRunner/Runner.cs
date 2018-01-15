@@ -18,7 +18,7 @@ namespace SharePointRunner
         /// <summary>
         /// Running level
         /// </summary>
-        public RunningLevelEnum RunningLevel { get; }
+        public RunningLevel RunningLevel { get; }
 
         /// <summary>
         /// List of active receivers for this runner
@@ -30,7 +30,7 @@ namespace SharePointRunner
         /// </summary>
         /// <param name="runningManager">Running manager</param>
         /// <param name="runningLevel">Running level</param>
-        public Runner(RunningManager runningManager, RunningLevelEnum runningLevel)
+        public Runner(RunningManager runningManager, RunningLevel runningLevel)
         {
             Manager = runningManager;
             RunningLevel = runningLevel;
@@ -65,7 +65,7 @@ namespace SharePointRunner
         /// <param name="context">SharePoint Context</param>
         /// <param name="element">Current SharePoint object</param>
         /// <param name="runningLevel">Running level</param>
-        public Runner(RunningManager runningManager, ClientContext context, T element, RunningLevelEnum runningLevel) : base(runningManager, runningLevel)
+        public Runner(RunningManager runningManager, ClientContext context, T element, RunningLevel runningLevel) : base(runningManager, runningLevel)
         {
             Context = context;
             Element = element;

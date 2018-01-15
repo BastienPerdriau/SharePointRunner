@@ -37,7 +37,7 @@ namespace SharePointRunner.LauncherV1
             RunningManager manager = new RunningManager()
             {
                 Credentials = cred,
-                StartingRunningLevel = RunningLevelEnum.Tenant,
+                StartingRunningLevel = RunningLevel.Tenant,
             };
 
             manager.Urls.Add(tenantUrl);

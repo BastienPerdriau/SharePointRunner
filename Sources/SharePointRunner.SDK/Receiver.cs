@@ -21,7 +21,7 @@ namespace SharePointRunner.SDK
         /// <summary>
         /// List of running levels implemented by the receiver
         /// </summary>
-        private List<RunningLevelEnum> runningLevels;
+        private List<RunningLevel> runningLevels;
 
         /// <summary>
         /// Constructor
@@ -29,15 +29,12 @@ namespace SharePointRunner.SDK
         public Receiver()
         {
             // Initialize the list of current receiver running levels
-            runningLevels = new List<RunningLevelEnum>();
-
-            // Get all the running levels string names
-            List<RunningLevelEnum> levels = Enum.GetValues(typeof(RunningLevelEnum)).Cast<RunningLevelEnum>().ToList();
+            runningLevels = new List<RunningLevel>();
 
             // Get all the names of the overriden methods by the current type
             List<string> methodNames = GetType().GetMethods().Where(m => IsMethodOverriden(m)).Select(m => m.Name).ToList();
 
-            foreach (RunningLevelEnum level in levels)
+            foreach (RunningLevelEnum level in RunningLevel.Values.Keys)
             {
                 // Initialize the regex with the current running level
                 Regex regex = new Regex($"On{level}Running[a-zA-Z]*");
@@ -45,7 +42,7 @@ namespace SharePointRunner.SDK
                 // If at least one of the methods matches the regex, add the current running level to the list
                 if (methodNames.Any(m => regex.IsMatch(m)))
                 {
-                    runningLevels.Add(level);
+                    runningLevels.Add(RunningLevel.Values[level]);
                 }
             }
         }
@@ -170,13 +167,13 @@ namespace SharePointRunner.SDK
         /// </summary>
         /// <param name="runningLevel">Running level</param>
         /// <returns>True if the receiver should be called, False if not</returns>
-        public bool IsReceiverCalled(RunningLevelEnum runningLevel) => runningLevels.Contains(runningLevel);
+        public bool IsReceiverCalled(RunningLevel runningLevel) => runningLevels.Contains(runningLevel);
 
         /// <summary>
         /// Know if the receiver will be called specific running level nor one of next level
         /// </summary>
         /// <param name="runningLevel">Running level</param>
         /// <returns>True if the receiver will be called, False if not</returns>
-        public bool IsReceiverCalledOrDeeper(RunningLevelEnum runningLevel) => runningLevels.Any(l => RunningLevel.Values[l] >= RunningLevel.Values[runningLevel]);
+        public bool IsReceiverCalledOrDeeper(RunningLevel runningLevel) => runningLevels.Any(l => l >= runningLevel);
     }
 }

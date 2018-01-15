@@ -37,7 +37,7 @@ namespace SharePointRunner
         /// <param name="context">SharePoint context</param>
         /// <param name="web">Site</param>
         /// <param name="isSubSite">True if the site is a sub site, False if not</param>
-        public SiteRunner(RunningManager runningManager, ClientContext context, Web web, bool isSubSite = false) : base(runningManager, context, web, RunningLevelEnum.Site)
+        public SiteRunner(RunningManager runningManager, ClientContext context, Web web, bool isSubSite = false) : base(runningManager, context, web, RunningLevel.Site)
         {
             IsSubSite = isSubSite;
         }
@@ -54,7 +54,7 @@ namespace SharePointRunner
             ActiveReceivers.ForEach(r => r.OnSiteRunningStart(Element));
 
             // If at least one receiver run lists or deeper
-            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.List)))
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.List)))
             {
                 // Crawl Lists
                 Context.Load(Element.Lists);

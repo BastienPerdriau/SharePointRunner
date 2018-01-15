@@ -12,7 +12,7 @@ namespace SharePointRunner
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
         /// <param name="view">View</param>
-        public ViewRunner(RunningManager runningManager, ClientContext context, View view) : base(runningManager, context, view, RunningLevelEnum.View) { }
+        public ViewRunner(RunningManager runningManager, ClientContext context, View view) : base(runningManager, context, view, RunningLevel.View) { }
 
         /// <summary>
         /// Action for this SharePoint view

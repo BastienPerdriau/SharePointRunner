@@ -17,7 +17,7 @@ namespace SharePointRunner
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
         /// <param name="tenant">Tenant</param>
-        public TenantRunner(RunningManager runningManager, ClientContext context, Tenant tenant) : base(runningManager, context, tenant, RunningLevelEnum.Tenant) { }
+        public TenantRunner(RunningManager runningManager, ClientContext context, Tenant tenant) : base(runningManager, context, tenant, RunningLevel.Tenant) { }
 
         /// <summary>
         /// Action for this SharePoint tenant
@@ -31,7 +31,7 @@ namespace SharePointRunner
             ActiveReceivers.ForEach(r => r.OnTenantRunningStart(Element));
 
             // If at least one receiver run site collections or deeper
-            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.SiteCollection)))
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.SiteCollection)))
             {
                 // Get site collections URLs
                 SPOSitePropertiesEnumerable properties = Element.GetSiteProperties(0, true);

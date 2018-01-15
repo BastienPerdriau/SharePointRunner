@@ -13,7 +13,7 @@ namespace SharePointRunner
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
         /// <param name="list">List</param>
-        public ListRunner(RunningManager runningManager, ClientContext context, List list) : base(runningManager, context, list, RunningLevelEnum.List) { }
+        public ListRunner(RunningManager runningManager, ClientContext context, List list) : base(runningManager, context, list, RunningLevel.List) { }
 
         /// <summary>
         /// Action for this SharePoint list
@@ -27,7 +27,7 @@ namespace SharePointRunner
             ActiveReceivers.ForEach(r => r.OnListRunningStart(Element));
 
             // If at least one receiver run views
-            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.View)))
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.View)))
             {
                 // Crawl views
                 Context.Load(Element.Views);
@@ -43,7 +43,7 @@ namespace SharePointRunner
             }
 
             // If at least one receiver run folders or deeper
-            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.Folder)))
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.Folder)))
             {
                 // TODO V2 Manage large lists
                 CamlQuery foldersQuery = new CamlQuery()
@@ -65,7 +65,7 @@ namespace SharePointRunner
 
                 folderRunners.ForEach(r => r.Process());
             }
-            else if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.ListItem)))
+            else if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.ListItem)))
             {
                 // TODO V2 Manage large lists
                 CamlQuery itemsQuery = new CamlQuery()

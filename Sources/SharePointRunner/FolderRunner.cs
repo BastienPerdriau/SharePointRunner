@@ -13,7 +13,7 @@ namespace SharePointRunner
         /// <param name="runningManager">Running manager</param>
         /// <param name="context">SharePoint context</param>
         /// <param name="folder">Folder</param>
-        public FolderRunner(RunningManager runningManager, ClientContext context, Folder folder) : base(runningManager, context, folder, RunningLevelEnum.Folder) { }
+        public FolderRunner(RunningManager runningManager, ClientContext context, Folder folder) : base(runningManager, context, folder, RunningLevel.Folder) { }
 
         /// <summary>
         /// Action for this SharePoint folder
@@ -28,7 +28,7 @@ namespace SharePointRunner
             ActiveReceivers.ForEach(r => r.OnFolderRunning(Element));
 
             // If at least one receiver run list items of deeper
-            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevelEnum.ListItem)))
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.ListItem)))
             {
                 // TODO V2 Manage large lists
                 CamlQuery itemsQuery = new CamlQuery()
