@@ -70,6 +70,11 @@ namespace SharePointRunner.SDK
         }.ToDictionary(r => r.RunningLevelEnum);
 
         /// <summary>
+        /// Constructor
+        /// </summary>
+        private RunningLevel() { }
+
+        /// <summary>
         /// Enumeration value of running level
         /// </summary>
         public RunningLevelEnum RunningLevelEnum { get; internal set; }
