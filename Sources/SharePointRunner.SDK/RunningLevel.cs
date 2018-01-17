@@ -6,7 +6,7 @@ namespace SharePointRunner.SDK
     /// <summary>
     /// Enumeration of different running levels
     /// </summary>
-    public enum RunningLevelEnum
+    public enum BaseRunningLevel
     {
         /// <summary>
         /// Tenant level
@@ -57,17 +57,17 @@ namespace SharePointRunner.SDK
         /// <summary>
         /// Dictionary of RunningLevel by RunningLevelEnum
         /// </summary>
-        public static readonly Dictionary<RunningLevelEnum, RunningLevel> Values = new List<RunningLevel>()
+        public static readonly Dictionary<BaseRunningLevel, RunningLevel> Values = new List<RunningLevel>()
         {
-            new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Tenant, Children = new List<RunningLevelEnum>() { RunningLevelEnum.SiteCollection } },
-            new RunningLevel() { RunningLevelEnum = RunningLevelEnum.SiteCollection, Children = new List<RunningLevelEnum>() { RunningLevelEnum.Site }},
-            new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Site, Children = new List<RunningLevelEnum>() { RunningLevelEnum.List }},
-            new RunningLevel() { RunningLevelEnum = RunningLevelEnum.List, Children = new List<RunningLevelEnum>() { RunningLevelEnum.View, RunningLevelEnum.Folder, RunningLevelEnum.ListItem }},
-            new RunningLevel() { RunningLevelEnum = RunningLevelEnum.View },
-            new RunningLevel() { RunningLevelEnum = RunningLevelEnum.Folder, Children = new List<RunningLevelEnum>() { RunningLevelEnum.ListItem }},
-            new RunningLevel() { RunningLevelEnum = RunningLevelEnum.ListItem, Children = new List<RunningLevelEnum>() { RunningLevelEnum.File }},
-            new RunningLevel() { RunningLevelEnum = RunningLevelEnum.File }
-        }.ToDictionary(r => r.RunningLevelEnum);
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.SiteCollection } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.SiteCollection, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Site }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Site, Children = new List<BaseRunningLevel>() { BaseRunningLevel.List }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.List, Children = new List<BaseRunningLevel>() { BaseRunningLevel.View, BaseRunningLevel.Folder, BaseRunningLevel.ListItem }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.View },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Folder, Children = new List<BaseRunningLevel>() { BaseRunningLevel.ListItem }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.ListItem, Children = new List<BaseRunningLevel>() { BaseRunningLevel.File }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.File }
+        }.ToDictionary(r => r.BaseRunningLevel);
 
         /// <summary>
         /// Constructor
@@ -77,52 +77,52 @@ namespace SharePointRunner.SDK
         /// <summary>
         /// Enumeration value of running level
         /// </summary>
-        public RunningLevelEnum RunningLevelEnum { get; internal set; }
+        public BaseRunningLevel BaseRunningLevel { get; internal set; }
 
         /// <summary>
         /// List of next running levels to this current level
         /// </summary>
-        public List<RunningLevelEnum> Children { get; internal set; } = new List<RunningLevelEnum>();
+        public List<BaseRunningLevel> Children { get; internal set; } = new List<BaseRunningLevel>();
 
         /// <summary>
         /// Tenant level
         /// </summary>
-        public static RunningLevel Tenant => Values[RunningLevelEnum.Tenant];
+        public static RunningLevel Tenant => Values[BaseRunningLevel.Tenant];
 
         /// <summary>
         /// Site collection level
         /// </summary>
-        public static RunningLevel SiteCollection => Values[RunningLevelEnum.SiteCollection];
+        public static RunningLevel SiteCollection => Values[BaseRunningLevel.SiteCollection];
 
         /// <summary>
         /// Site level
         /// </summary>
-        public static RunningLevel Site => Values[RunningLevelEnum.Site];
+        public static RunningLevel Site => Values[BaseRunningLevel.Site];
 
         /// <summary>
         /// List level
         /// </summary>
-        public static RunningLevel List => Values[RunningLevelEnum.List];
+        public static RunningLevel List => Values[BaseRunningLevel.List];
 
         /// <summary>
         /// View level
         /// </summary>
-        public static RunningLevel View => Values[RunningLevelEnum.View];
+        public static RunningLevel View => Values[BaseRunningLevel.View];
 
         /// <summary>
         /// Folder level
         /// </summary>
-        public static RunningLevel Folder => Values[RunningLevelEnum.Folder];
+        public static RunningLevel Folder => Values[BaseRunningLevel.Folder];
 
         /// <summary>
         /// List item level
         /// </summary>
-        public static RunningLevel ListItem => Values[RunningLevelEnum.ListItem];
+        public static RunningLevel ListItem => Values[BaseRunningLevel.ListItem];
 
         /// <summary>
         /// File Level
         /// </summary>
-        public static RunningLevel File => Values[RunningLevelEnum.File];
+        public static RunningLevel File => Values[BaseRunningLevel.File];
 
         /// <summary>
         /// Know if the current running level has another running level to child level
@@ -131,7 +131,7 @@ namespace SharePointRunner.SDK
         /// <returns>True if the other running is a child level of the current, False if not</returns>
         public bool HasChild(RunningLevel otherRunningLevel)
         {
-            return Children.Contains(otherRunningLevel.RunningLevelEnum) || Children.Any(l => Values[l].HasChild(otherRunningLevel));
+            return Children.Contains(otherRunningLevel.BaseRunningLevel) || Children.Any(l => Values[l].HasChild(otherRunningLevel));
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace SharePointRunner.SDK
         /// <returns>The string value</returns>
         public override string ToString()
         {
-            return RunningLevelEnum.ToString();
+            return BaseRunningLevel.ToString();
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace SharePointRunner.SDK
         /// <returns>The hash value</returns>
         public override int GetHashCode()
         {
-            return RunningLevelEnum.GetHashCode();
+            return BaseRunningLevel.GetHashCode();
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace SharePointRunner.SDK
 
             RunningLevel otherRunningLevel = (RunningLevel)obj;
 
-            return RunningLevelEnum == otherRunningLevel.RunningLevelEnum;
+            return BaseRunningLevel == otherRunningLevel.BaseRunningLevel;
         }
 
         /// <summary>

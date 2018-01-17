@@ -34,7 +34,7 @@ namespace SharePointRunner.SDK
             // Get all the names of the overriden methods by the current type
             List<string> methodNames = GetType().GetMethods().Where(m => IsMethodOverriden(m)).Select(m => m.Name).ToList();
 
-            foreach (RunningLevelEnum level in RunningLevel.Values.Keys)
+            foreach (BaseRunningLevel level in RunningLevel.Values.Keys)
             {
                 // Initialize the regex with the current running level
                 Regex regex = new Regex($"On{level}Running[a-zA-Z]*");
