@@ -3,7 +3,7 @@
 namespace SharePointRunner.SDK.Tests
 {
     /// <summary>
-    /// Test class for RUnningLevel class
+    /// Test class for RunningLevel class
     /// </summary>
     public class RunningLevelTests
     {
@@ -126,6 +126,12 @@ namespace SharePointRunner.SDK.Tests
         #endregion
 
         #region Operators
+        [Fact]
+        public void EqualOperatorTest()
+        {
+
+        }
+        
         // TODO Tests oprator overrides
         #endregion
     }
