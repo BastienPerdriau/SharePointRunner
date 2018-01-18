@@ -127,11 +127,30 @@ namespace SharePointRunner.SDK.Tests
 
         #region Operators
         [Fact]
-        public void EqualOperatorTest()
+        public void EqualEqOperatorTest()
         {
-
+            Assert.True(RunningLevel.Tenant == RunningLevel.Tenant);
         }
-        
+
+        [Fact]
+        public void NotEqualEqOperatorTest()
+        {
+            Assert.False(RunningLevel.Tenant == RunningLevel.File);
+        }
+
+        [Fact]
+        public void EqualNeqOperatorTest()
+        {
+            Assert.True(RunningLevel.Tenant != RunningLevel.File);
+        }
+
+        [Fact]
+        public void NotEqualNeqOperatorTest()
+        {
+            Assert.False(RunningLevel.Tenant != RunningLevel.Tenant);
+        }
+
+
         // TODO Tests oprator overrides
         #endregion
     }
