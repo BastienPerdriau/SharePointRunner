@@ -19,7 +19,6 @@ namespace SharePointRunner
         /// </summary>
         public static readonly ILog Logger = LogManager.GetLogger(typeof(RunningManager).Namespace);
 
-        // TODO V2 Add logs
         /// <summary>
         /// List of receivers
         /// </summary>
