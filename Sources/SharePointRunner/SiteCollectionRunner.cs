@@ -19,12 +19,12 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            RunningManager.Logger.Debug("SiteCollectionRunner Process()");
+            RunningManager.Logger.Debug($"SiteCollectionRunner Process() - {ActiveReceivers.Count} active receivers");
             Context.Load(Element,
                 s => s.Url,
                 s => s.RootWeb);
             Context.ExecuteQuery();
-            RunningManager.Logger.Debug($"Site collection URL: {Element.Url}");
+            RunningManager.Logger.Debug($"SiteCollection | URL: {Element.Url}");
 
             // OnSiteCollectionRunningStart
             RunningManager.Logger.Debug("SiteCollectionRunner OnSiteCollectionRunningStart()");

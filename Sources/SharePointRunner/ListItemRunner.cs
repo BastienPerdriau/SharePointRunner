@@ -19,11 +19,11 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            RunningManager.Logger.Debug("ListItemRunner Process()");
+            RunningManager.Logger.Debug($"ListItemRunner Process() - {ActiveReceivers.Count} active receivers");
             Context.Load(Element,
                 li => li.DisplayName);
             Context.ExecuteQuery();
-            RunningManager.Logger.Debug($"List item Display Name: {Element.DisplayName}");
+            RunningManager.Logger.Debug($"ListItem | DisplayName: {Element.DisplayName}");
 
             // OnListItemRunning
             RunningManager.Logger.Debug("ListItemRunner OnListItemRunning()");

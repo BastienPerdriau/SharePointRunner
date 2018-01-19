@@ -24,11 +24,11 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            RunningManager.Logger.Debug("TenantRunner Process()");
+            RunningManager.Logger.Debug($"TenantRunner Process() - {ActiveReceivers.Count} active receivers");
             Context.Load(Element,
                 t => t.RootSiteUrl);
             Context.ExecuteQuery();
-            RunningManager.Logger.Debug($"Tenant URL: {Element.RootSiteUrl}");
+            RunningManager.Logger.Debug($"Tenant | URL: {Element.RootSiteUrl}");
 
             // OnTenantRunningStart
             RunningManager.Logger.Debug("TenantRunner OnTenantRunningStart()");

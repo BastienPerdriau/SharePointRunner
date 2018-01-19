@@ -20,12 +20,12 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            RunningManager.Logger.Debug("ListRunner Process()");
+            RunningManager.Logger.Debug($"ListRunner Process() - {ActiveReceivers.Count} active receivers");
             Context.Load(Element,
                 l => l.Title,
                 l => l.RootFolder.ServerRelativeUrl);
             Context.ExecuteQuery();
-            RunningManager.Logger.Debug($"List Title (URL): {Element.Title} ({Element.RootFolder.ServerRelativeUrl})");
+            RunningManager.Logger.Debug($"List | Title: {Element.Title} / URL: {Element.RootFolder.ServerRelativeUrl}");
 
             // OnListRunningStart
             RunningManager.Logger.Debug("ListRunner OnListRunningStart()");
