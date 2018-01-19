@@ -186,6 +186,6 @@ namespace SharePointRunner.SDK
         /// </summary>
         /// <param name="runningLevel">Running level</param>
         /// <returns>True if the receiver will be called, False if not</returns>
-        public bool IsReceiverCalledOrDeeper(RunningLevel runningLevel) => runningLevels.Any(l => l >= runningLevel);
+        public bool IsReceiverCalledOrDeeper(RunningLevel runningLevel) => runningLevels.Any(l => l <= runningLevel);
     }
 }

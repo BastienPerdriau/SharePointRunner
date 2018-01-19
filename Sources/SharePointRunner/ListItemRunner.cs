@@ -30,17 +30,14 @@ namespace SharePointRunner
             ActiveReceivers.ForEach(r => r.OnListItemRunning(Element));
 
             // If at least one receiver run files
-            // TODO ERROR
             if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.File)))
             {
                 Context.Load(Element,
-                    li => li.File.Exists,
-                    li => li.File.ServerRelativeUrl);
+                    li => li.FileSystemObjectType);
                 Context.ExecuteQuery();
 
                 // If there is a file
-                // TODO ERROR
-                if (Element.File.Exists)
+                if (Element.FileSystemObjectType == FileSystemObjectType.File)
                 {
                     // Run file on current list item
                     FileRunner fileRunner = new FileRunner(Manager, Context, Element.File);

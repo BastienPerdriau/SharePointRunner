@@ -116,11 +116,11 @@ namespace SharePointRunner.LauncherV1
                     "FileLeafRef"
                 };
 
-                IEnumerable<ListItem> items = LoadItems(pages, viewXml, viewFields, li => li.File);
+                IEnumerable<ListItem> items = LoadItems(pages, viewXml, viewFields, li => li.File.Exists, li => li.FileSystemObjectType);
 
                 foreach (ListItem item in items)
                 {
-                    if (item.File.Exists)
+                    if (item.FileSystemObjectType == FileSystemObjectType.File && item.File.Exists)
                     {
                         LimitedWebPartManager webPartManager = item.File.GetLimitedWebPartManager(PersonalizationScope.Shared);
                         web.Context.Load(webPartManager,
