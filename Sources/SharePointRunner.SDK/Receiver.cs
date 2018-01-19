@@ -109,10 +109,10 @@ namespace SharePointRunner.SDK
         public virtual void OnViewRunning(View view) { }
 
         /// <summary>
-        /// Event to handle a folder
+        /// Event at the start of handling a folder
         /// </summary>
         /// <param name="folder">Folder</param>
-        public virtual void OnFolderRunning(Folder folder) { }
+        public virtual void OnFolderRunningStart(Folder folder) { }
 
         /// <summary>
         /// Event to handle a list item
@@ -125,6 +125,18 @@ namespace SharePointRunner.SDK
         /// </summary>
         /// <param name="file">File</param>
         public virtual void OnFileRunning(File file) { }
+
+        /// <summary>
+        /// Event at the end of handling a folder
+        /// </summary>
+        /// <param name="folder">Folder</param>
+        public virtual void OnFolderRunningEnd(Folder folder) { }
+
+        /// <summary>
+        /// Event at the end of handling sub folders of a folder
+        /// </summary>
+        /// <param name="folder">Folder</param>
+        public virtual void OnFolderRunningEndAfterSubFolders(Folder folder) { }
 
         /// <summary>
         /// Event at the end of handling a list

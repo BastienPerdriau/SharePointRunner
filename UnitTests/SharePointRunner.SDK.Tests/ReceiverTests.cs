@@ -3,7 +3,7 @@
 namespace SharePointRunner.SDK.Tests
 {
     /// <summary>
-    /// Test class for Receiver class
+    /// Receiver test class
     /// </summary>
     public class ReceiverTests
     {

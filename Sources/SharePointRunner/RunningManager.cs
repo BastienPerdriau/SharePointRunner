@@ -1,4 +1,5 @@
-﻿using Microsoft.Online.SharePoint.TenantAdministration;
+﻿using log4net;
+using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
 using SharePointRunner.SDK;
 using System;
@@ -13,6 +14,12 @@ namespace SharePointRunner
     /// </summary>
     public class RunningManager
     {
+        /// <summary>
+        /// Logger
+        /// </summary>
+        public static readonly ILog Logger = LogManager.GetLogger(typeof(RunningManager).Namespace);
+
+        // TODO V2 Add logs
         /// <summary>
         /// List of receivers
         /// </summary>
@@ -38,6 +45,7 @@ namespace SharePointRunner
         /// </summary>
         public void Run()
         {
+            Logger.Info("RunningManager initialized");
             List<Runner> runners;
             switch (StartingRunningLevel.BaseRunningLevel)
             {
@@ -58,14 +66,23 @@ namespace SharePointRunner
                     throw new Exception($"Run cannot start at '{StartingRunningLevel.ToString()}' level");
             }
 
+            Logger.Info("RunningManager initialized");
+            Logger.Info($"Receivers count: {Receivers.Count}");
+            Logger.Info($"StartingRunningLevel: {StartingRunningLevel}");
+            Logger.Info($"Runners count: {runners.Count} for URLs: '{string.Join(", ", Urls)}'");
+
             // OnStart
+            Logger.Debug("RunningManager OnStart()");
             Receivers.ForEach(r => r.OnStart());
 
             // Launch runners
             runners.ForEach(r => r.Process());
 
             // OnEnd
+            Logger.Debug("RunningManager OnEnd()");
             Receivers.ForEach(r => r.OnEnd());
+
+            Logger.Info("RunningManager finished");
         }
 
         /// <summary>
@@ -83,7 +100,7 @@ namespace SharePointRunner
         /// <summary>
         /// Get runners of site collections
         /// </summary>
-        /// <param name="siteCollectionUrls">Sites collections URLs</param>
+        /// <param name="siteCollectionUrls">Site collections URLs</param>
         private List<SiteCollectionRunner> GetSiteCollectionRunners(List<string> siteCollectionUrls)
         {
             List<SiteCollectionRunner> runners = new List<SiteCollectionRunner>();
@@ -162,7 +179,7 @@ namespace SharePointRunner
         /// <summary>
         /// Open a SharePoint context
         /// </summary>
-        /// <param name="url">Sharepoint site URL</param>
+        /// <param name="url">SharePoint site URL</param>
         /// <returns>SharePoint context</returns>
         private ClientContext OpenClientContext(string url)
         {

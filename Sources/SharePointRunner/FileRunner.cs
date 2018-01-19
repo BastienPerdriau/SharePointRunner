@@ -18,10 +18,15 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            Context.Load(Element);
+            RunningManager.Logger.Debug("FileRunner Process()");
+            Context.Load(Element,
+                f => f.Name,
+                f => f.ServerRelativeUrl);
             Context.ExecuteQuery();
+            RunningManager.Logger.Debug($"File Name (URL): {Element.Name} ({Element.ServerRelativeUrl})");
 
             // OnFileRunning
+            RunningManager.Logger.Debug("FileRunner OnFileRunning()");
             ActiveReceivers.ForEach(r => r.OnFileRunning(Element));
         }
     }

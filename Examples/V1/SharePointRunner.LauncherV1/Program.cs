@@ -9,7 +9,7 @@ namespace SharePointRunner.LauncherV1
         static void Main(string[] args)
         {
             // TODO V2 Set Receivers to DLL with XML file
-            // TODO V2 Add logs (file, console, trace)
+            // TODO V2 Parameterize logs: file, console, trace
             // TODO V3 Customize logs (activate or not, log level, file location...)
             // TODO V4 Create PS Cmdlets
 

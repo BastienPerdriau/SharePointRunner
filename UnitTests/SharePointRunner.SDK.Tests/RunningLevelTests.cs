@@ -3,7 +3,7 @@
 namespace SharePointRunner.SDK.Tests
 {
     /// <summary>
-    /// Test class for RunningLevel class
+    /// RunningLevel test class
     /// </summary>
     public class RunningLevelTests
     {
@@ -150,8 +150,77 @@ namespace SharePointRunner.SDK.Tests
             Assert.False(RunningLevel.Tenant != RunningLevel.Tenant);
         }
 
+        [Fact]
+        public void GreaterThanGtOperatorTest()
+        {
+            Assert.True(RunningLevel.SiteCollection > RunningLevel.Folder);
+        }
 
-        // TODO Tests oprator overrides
+        [Fact]
+        public void EqualGtOperatorTest()
+        {
+            Assert.False(RunningLevel.Site > RunningLevel.Site);
+        }
+
+        [Fact]
+        public void LowerThanGtOperatorTest()
+        {
+            Assert.False(RunningLevel.File > RunningLevel.Site);
+        }
+
+        [Fact]
+        public void GreaterThanLtOperatorTest()
+        {
+            Assert.False(RunningLevel.SiteCollection < RunningLevel.Folder);
+        }
+
+        [Fact]
+        public void EqualLtOperatorTest()
+        {
+            Assert.False(RunningLevel.List < RunningLevel.List);
+        }
+
+        [Fact]
+        public void LowerThanLtOperatorTest()
+        {
+            Assert.True(RunningLevel.View < RunningLevel.Site);
+        }
+
+        [Fact]
+        public void GreaterThanGeOperatorTest()
+        {
+            Assert.True(RunningLevel.SiteCollection >= RunningLevel.Folder);
+        }
+
+        [Fact]
+        public void EqualGeOperatorTest()
+        {
+            Assert.True(RunningLevel.Site >= RunningLevel.Site);
+        }
+
+        [Fact]
+        public void LowerThanGeOperatorTest()
+        {
+            Assert.False(RunningLevel.File >= RunningLevel.Site);
+        }
+
+        [Fact]
+        public void GreaterThanLeOperatorTest()
+        {
+            Assert.False(RunningLevel.SiteCollection <= RunningLevel.Folder);
+        }
+
+        [Fact]
+        public void EqualLeOperatorTest()
+        {
+            Assert.True(RunningLevel.List <= RunningLevel.List);
+        }
+
+        [Fact]
+        public void LowerThanLeOperatorTest()
+        {
+            Assert.True(RunningLevel.View <= RunningLevel.Site);
+        }
         #endregion
     }
 }

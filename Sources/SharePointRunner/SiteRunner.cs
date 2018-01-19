@@ -47,10 +47,15 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            Context.Load(Element);
+            RunningManager.Logger.Debug("SiteRunner Process()");
+            Context.Load(Element,
+                s => s.Title,
+                s => s.Url);
             Context.ExecuteQuery();
+            RunningManager.Logger.Debug($"Site Title (URL): {Element.Title} ({Element.Url})");
 
             // OnSiteRunningStart
+            RunningManager.Logger.Debug("SiteRunner OnSiteRunningStart()");
             ActiveReceivers.ForEach(r => r.OnSiteRunningStart(Element));
 
             // If at least one receiver run lists or deeper
@@ -70,6 +75,7 @@ namespace SharePointRunner
             }
 
             // OnSiteRunningEnd
+            RunningManager.Logger.Debug("SiteRunner OnSiteRunningEnd()");
             ActiveReceivers.ForEach(r => r.OnSiteRunningEnd(Element));
 
             // If at least one receiver run subsites
@@ -88,6 +94,7 @@ namespace SharePointRunner
                 siteRunners.ForEach(r => r.Process());
 
                 // OnSiteRunningEndAfterSubSites
+                RunningManager.Logger.Debug("SiteRunner OnSiteRunningEndAfterSubSites()");
                 ActiveReceivers.ForEach(r => r.OnSiteRunningEndAfterSubSites(Element));
             }
         }

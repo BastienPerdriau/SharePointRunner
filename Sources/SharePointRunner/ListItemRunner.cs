@@ -19,20 +19,27 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            Context.Load(Element);
+            RunningManager.Logger.Debug("ListItemRunner Process()");
+            Context.Load(Element,
+                li => li.DisplayName);
             Context.ExecuteQuery();
+            RunningManager.Logger.Debug($"List item Display Name: {Element.DisplayName}");
 
             // OnListItemRunning
+            RunningManager.Logger.Debug("ListItemRunner OnListItemRunning()");
             ActiveReceivers.ForEach(r => r.OnListItemRunning(Element));
 
             // If at least one receiver run files
+            // TODO ERROR
             if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.File)))
             {
                 Context.Load(Element,
-                    li => li.File);
+                    li => li.File.Exists,
+                    li => li.File.ServerRelativeUrl);
                 Context.ExecuteQuery();
 
                 // If there is a file
+                // TODO ERROR
                 if (Element.File.Exists)
                 {
                     // Run file on current list item

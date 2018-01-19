@@ -19,10 +19,15 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            Context.Load(Element);
+            RunningManager.Logger.Debug("ViewRunner Process()");
+            Context.Load(Element,
+                v => v.Title,
+                v => v.ServerRelativeUrl);
             Context.ExecuteQuery();
+            RunningManager.Logger.Debug($"View title (URL): {Element.Title} ({Element.ServerRelativeUrl})");
 
             // OnViewRunning
+            RunningManager.Logger.Debug("ViewRunner OnViewRunning()");
             ActiveReceivers.ForEach(r => r.OnViewRunning(Element));
         }
     }

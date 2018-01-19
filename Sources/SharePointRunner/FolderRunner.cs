@@ -20,12 +20,18 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
+            RunningManager.Logger.Debug("FolderRunner Process()");
             Context.Load(Element,
+                f => f.Name,
+                f => f.ServerRelativeUrl,
+                f => f.ListItemAllFields["FileRef"],
                 f => f.ListItemAllFields.ParentList);
             Context.ExecuteQuery();
+            RunningManager.Logger.Debug($"Folder Name (URL): {Element.Name} ({Element.ServerRelativeUrl})");
 
-            // OnFolderRunning
-            ActiveReceivers.ForEach(r => r.OnFolderRunning(Element));
+            // OnFolderRunningStart
+            RunningManager.Logger.Debug("FolderRunner OnFolderRunningStart()");
+            ActiveReceivers.ForEach(r => r.OnFolderRunningStart(Element));
 
             // If at least one receiver run list items of deeper
             if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.ListItem)))
@@ -50,6 +56,10 @@ namespace SharePointRunner
                 itemRunners.ForEach(r => r.Process());
             }
 
+            // OnFolderRunningEnd
+            RunningManager.Logger.Debug("FolderRunner OnFolderRunningEnd()");
+            ActiveReceivers.ForEach(r => r.OnFolderRunningEnd(Element));
+
             // TODO V2 Manage large lists
             CamlQuery subFoldersQuery = new CamlQuery()
             {
@@ -70,6 +80,10 @@ namespace SharePointRunner
             }
 
             folderRunners.ForEach(r => r.Process());
+
+            // OnFolderRunningEndAfterSubFolders
+            RunningManager.Logger.Debug("FolderRunner OnFolderRunningEndAfterSubFolders()");
+            ActiveReceivers.ForEach(r => r.OnFolderRunningEndAfterSubFolders(Element));
         }
     }
 }

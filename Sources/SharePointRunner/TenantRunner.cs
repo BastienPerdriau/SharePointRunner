@@ -24,10 +24,14 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            Context.Load(Element);
+            RunningManager.Logger.Debug("TenantRunner Process()");
+            Context.Load(Element,
+                t => t.RootSiteUrl);
             Context.ExecuteQuery();
+            RunningManager.Logger.Debug($"Tenant URL: {Element.RootSiteUrl}");
 
             // OnTenantRunningStart
+            RunningManager.Logger.Debug("TenantRunner OnTenantRunningStart()");
             ActiveReceivers.ForEach(r => r.OnTenantRunningStart(Element));
 
             // If at least one receiver run site collections or deeper
@@ -56,6 +60,7 @@ namespace SharePointRunner
             }
 
             // OnTenantRunningEnd
+            RunningManager.Logger.Debug("TenantRunner OnTenantRunningEnd()");
             ActiveReceivers.ForEach(r => r.OnTenantRunningEnd(Element));
         }
     }

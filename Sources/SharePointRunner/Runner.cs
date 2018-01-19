@@ -37,7 +37,7 @@ namespace SharePointRunner
         }
 
         /// <summary>
-        /// Action for this SharePoint object
+        /// Action for this object
         /// </summary>
         public abstract void Process();
     }

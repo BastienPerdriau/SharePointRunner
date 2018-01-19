@@ -161,7 +161,11 @@ namespace SharePointRunner.LauncherV1
                         l => l.ParentWeb.Title);
                     break;
                 case ListItem listItem:
-                    securableObject.Context.Load(listItem);
+                    securableObject.Context.Load(listItem,
+                        li => li["FileRef"],
+                        li => li.DisplayName,
+                        li => li.ParentList.Title,
+                        li => li.ParentList.ParentWeb.Title);
                     break;
             }
 
@@ -234,6 +238,11 @@ namespace SharePointRunner.LauncherV1
         public override void OnListRunningStart(List list)
         {
             WriteCsv(list);
+        }
+
+        public override void OnFolderRunningStart(Folder folder)
+        {
+            WriteCsv(folder.ListItemAllFields);
         }
 
         public override void OnSiteCollectionRunningEnd(Site site, Web rootWeb)

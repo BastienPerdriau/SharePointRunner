@@ -20,10 +20,15 @@ namespace SharePointRunner
         /// </summary>
         public override void Process()
         {
-            Context.Load(Element);
+            RunningManager.Logger.Debug("ListRunner Process()");
+            Context.Load(Element,
+                l => l.Title,
+                l => l.RootFolder.ServerRelativeUrl);
             Context.ExecuteQuery();
+            RunningManager.Logger.Debug($"List Title (URL): {Element.Title} ({Element.RootFolder.ServerRelativeUrl})");
 
             // OnListRunningStart
+            RunningManager.Logger.Debug("ListRunner OnListRunningStart()");
             ActiveReceivers.ForEach(r => r.OnListRunningStart(Element));
 
             // If at least one receiver run views
@@ -87,6 +92,7 @@ namespace SharePointRunner
             }
 
             // OnListRunningEnd
+            RunningManager.Logger.Debug("ListRunner OnListRunningEnd()");
             ActiveReceivers.ForEach(r => r.OnListRunningEnd(Element));
         }
     }
