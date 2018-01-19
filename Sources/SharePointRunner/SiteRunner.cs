@@ -62,11 +62,24 @@ namespace SharePointRunner
             if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.List)))
             {
                 // Crawl Lists
-                Context.Load(Element.Lists);
+                Context.Load(Element.Lists,
+                    coll => coll.Include(
+                        l => l.Hidden));
                 Context.ExecuteQuery();
 
                 List<ListRunner> listRunners = new List<ListRunner>();
-                foreach (List list in Element.Lists)
+
+                IEnumerable<List> lists;
+                if (Manager.Receivers.Any(r => r.IncludeHiddenLists))
+                {
+                    lists = Element.Lists;
+                }
+                else
+                {
+                    lists = Element.Lists.Where(l => !l.Hidden);
+                }
+
+                foreach (List list in lists)
                 {
                     listRunners.Add(new ListRunner(Manager, Context, list));
                 }

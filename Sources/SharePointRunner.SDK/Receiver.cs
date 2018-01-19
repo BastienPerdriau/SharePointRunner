@@ -19,6 +19,11 @@ namespace SharePointRunner.SDK
         public virtual bool IncludeSubSites { get; set; } = true;
 
         /// <summary>
+        /// True if the receiver needs to include hidden lists when running, False if not
+        /// </summary>
+        public virtual bool IncludeHiddenLists { get; set; } = false;
+
+        /// <summary>
         /// List of running levels implemented by the receiver
         /// </summary>
         private List<RunningLevel> runningLevels;
