@@ -24,6 +24,14 @@ This class can override these methods :
 - `OnSiteRunningEnd(Web web)` : Executed at the end of the process for a site (after the lists) and expose the `Web` object
 - `OnSiteRunningEndAfterSubSites(Web web)` : Executed at the end of the process for a site (after the sub sites) and expose the `Web` object
 - `OnSiteCollectionRunningEnd(Site site, Web rootSite)` : Executed at the end of the process for a site collection and expose the `Site` object and the `Web` for the root site
+- `OnTermStoreRunningStart(TermStore termStore)` : Executed at the start of the process for a term store and expose the `TermStore` object
+- `OnTermGroupRunningStart(TermGroup termGroup)` : Executed at the start of the process for a term group and expose the `TermGroup` object
+- `OnTermSetRunningStart(TermSet termSet)` : Executed at the start of the process for a term set and expose the `TermSet` object
+- `OnTermRunningStart(Term term)` : Executed at the start of the process for a term and expose the `Term` object
+- `OnTermRunningEnd(Term term)` : Executed at the end of the process for a term and expose the `Term` object
+- `OnTermSetRunningEnd(TermSet termSet)` : Executed at the end of the process for a term set and expose the `TermSet` object
+- `OnTermGroupRunningEnd(TermGroup termGroup)` : Executed at the end of the process for a term group and expose the `TermGroup` object
+- `OnTermStoreRunningEnd(TermStore termStore)` : Executed at the end of the process for a term store and expose the `TermStore` object
 - `OnTenantRunningEnd(Tenant tenant)` : Executed at the end of the process for the tenant and expose the `Tenant` object
 - `OnEnd()` : Executed at the very end of the process, can be used to export a file of make an external call
 
@@ -36,7 +44,7 @@ In addition, I would create PowerShell CmdLets to call the process from a script
 I wrote a few examples from past experiences, availables in examples [here](Examples)
 
 - `GroupsReceiver` : A receiver which export to CSV file the users of groups which contains one of the value (from groupNames) in their name
-- `ManagedMetadataReceiver` : A receiver which export all the managed metadata from the SharePoint term store (unfinished)
+- `ManagedMetadataReceiver` : A receiver which export all the managed metadata from the SharePoint term store
 - `PermissionsReceiver` : A receiver which crawl every site collection, sub sites and lists (and possibly folders and items) to know if they have inheritance broke and get the users and the permission level granted
 - `WebPartsReceiver` : A receiver which crawl every site and sub sites to get all pages (from Site Pages or Pages) and the number of web parts on each one
 - `WebUsageReceiver` : A receiver which get the item the most recently item from each site and sub site
@@ -44,15 +52,13 @@ I wrote a few examples from past experiences, availables in examples [here](Exam
 ## Close-future features / improvments
 These features are mandatory to have a real usable tool for a large panel of use cases
 
-- Finish the example "ManagedMetadataReceiver"
 - Create NuGet packages (one with the SDK, one with the process)
-- Add logs, there is none at the moment (Log4Net, to console, file, trace, all configurable)
-- Add unit tests
+- Allow configuration of logs :to console, file, trace
+- Complete unit tests
 - Several tehcnical improvments
 
 ## Future features / improvents
 
-- Maybe manage Managed Metadata
 - Separate receivers from the program which call the process to DLL
 - Create PowerShell CmdLets to call the process with a standard configuration file (XML nor JSON)
 - Others technical improvnents
