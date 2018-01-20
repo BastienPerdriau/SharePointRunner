@@ -79,18 +79,18 @@ namespace SharePointRunner.SDK
         /// </summary>
         public static readonly Dictionary<BaseRunningLevel, RunningLevel> Values = new List<RunningLevel>()
         {
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.SiteCollection, BaseRunningLevel.TermStore } },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.SiteCollection, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Site }},
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Site, Children = new List<BaseRunningLevel>() { BaseRunningLevel.List }},
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.List, Children = new List<BaseRunningLevel>() { BaseRunningLevel.View, BaseRunningLevel.Folder, BaseRunningLevel.ListItem }},
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.View },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Folder, Children = new List<BaseRunningLevel>() { BaseRunningLevel.ListItem }},
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.ListItem, Children = new List<BaseRunningLevel>() { BaseRunningLevel.File }},
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.File },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermStore, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermGroup } },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermGroup, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermSet } },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermSet, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Term } },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Term }
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Tenant, Parent = null, Children = new List<BaseRunningLevel>() { BaseRunningLevel.SiteCollection, BaseRunningLevel.TermStore } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.SiteCollection, Parent = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Site }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Site, Parent = BaseRunningLevel.SiteCollection, Children = new List<BaseRunningLevel>() { BaseRunningLevel.List }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.List, Parent = BaseRunningLevel.Site, Children = new List<BaseRunningLevel>() { BaseRunningLevel.View, BaseRunningLevel.Folder, BaseRunningLevel.ListItem }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.View, Parent = BaseRunningLevel.List },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Folder, Parent = BaseRunningLevel.List, Children = new List<BaseRunningLevel>() { BaseRunningLevel.ListItem }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.ListItem, Parent = BaseRunningLevel.Folder, Children = new List<BaseRunningLevel>() { BaseRunningLevel.File }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.File, Parent = BaseRunningLevel.ListItem },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermStore, Parent = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermGroup } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermGroup, Parent = BaseRunningLevel.TermStore, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermSet } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermSet, Parent = BaseRunningLevel.TermGroup, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Term } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Term, Parent = BaseRunningLevel.TermSet }
         }.ToDictionary(r => r.BaseRunningLevel);
 
         /// <summary>
@@ -102,6 +102,11 @@ namespace SharePointRunner.SDK
         /// Enumeration value of running level
         /// </summary>
         public BaseRunningLevel BaseRunningLevel { get; internal set; }
+
+        /// <summary>
+        /// Enumeration value of running level
+        /// </summary>
+        public BaseRunningLevel? Parent { get; internal set; }
 
         /// <summary>
         /// List of next running levels to this current level
@@ -169,10 +174,20 @@ namespace SharePointRunner.SDK
         public static RunningLevel Term => Values[BaseRunningLevel.Term];
 
         /// <summary>
-        /// Know if the current running level has another running level to child level
+        /// Know if the current running level has another one as parent level
         /// </summary>
         /// <param name="otherRunningLevel">Another running level</param>
-        /// <returns>True if the other running is a child level of the current, False if not</returns>
+        /// <returns>True if the other running level is a parent level of the current one, False if not</returns>
+        public bool HasParent(RunningLevel otherRunningLevel)
+        {
+            return (Parent.HasValue && (Parent.Value == otherRunningLevel.BaseRunningLevel || Values[Parent.Value].HasParent(otherRunningLevel)));
+        }
+
+        /// <summary>
+        /// Know if the current running level has another one to child level
+        /// </summary>
+        /// <param name="otherRunningLevel">Another running level</param>
+        /// <returns>True if the other running is a child level of the current one, False if not</returns>
         public bool HasChild(RunningLevel otherRunningLevel)
         {
             return Children.Contains(otherRunningLevel.BaseRunningLevel) || Children.Any(l => Values[l].HasChild(otherRunningLevel));
@@ -248,7 +263,7 @@ namespace SharePointRunner.SDK
         /// <returns>True if the first running level is at a lower level to the second, False if not</returns>
         public static bool operator <(RunningLevel r1, RunningLevel r2)
         {
-            return r1 != r2 && !(r1 > r2);
+            return r1 != r2 && r1.HasParent(r2);
         }
 
         /// <summary>

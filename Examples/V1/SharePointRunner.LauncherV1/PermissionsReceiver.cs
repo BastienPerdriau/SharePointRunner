@@ -97,7 +97,7 @@ namespace SharePointRunner.LauncherV1
     }
 
     /// <summary>
-    /// Informations d'un groupe
+    /// Group informations
     /// </summary>
     public class GroupInfo
     {

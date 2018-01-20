@@ -1,5 +1,6 @@
 ﻿using Microsoft.SharePoint.Client;
 using SharePointRunner.SDK;
+using System.Collections.Generic;
 using System.Security;
 
 namespace SharePointRunner.LauncherV1
@@ -12,6 +13,36 @@ namespace SharePointRunner.LauncherV1
             // TODO V2 Parameterize logs: file, console, trace
             // TODO V3 Customize logs (activate or not, log level, file location...)
             // TODO V4 Create PS Cmdlets
+
+            //List<RunningLevel> levels = new List<RunningLevel>()
+            //{
+            //    RunningLevel.Tenant,
+            //    RunningLevel.SiteCollection,
+            //    RunningLevel.Site,
+            //    RunningLevel.List,
+            //    RunningLevel.View,
+            //    RunningLevel.Folder,
+            //    RunningLevel.ListItem,
+            //    RunningLevel.File,
+            //    RunningLevel.TermStore,
+            //    RunningLevel.TermGroup,
+            //    RunningLevel.TermSet,
+            //    RunningLevel.Term
+            //};
+
+            //string str = "";
+
+            //foreach (RunningLevel level1 in levels)
+            //{
+            //    str += $"{level1.ToString()}\n";
+            //    foreach (RunningLevel level2 in levels)
+            //    {
+            //        str += $"{level1} < {level2} : {level1 < level2}\n";
+            //        str += $"{level1} > {level2} : {level1 > level2}\n";
+            //    }
+            //    str += $"------------------------------------------------\n";
+            //    str += $"\n";
+            //}
 
             if (args.Length < 3)
             {
@@ -38,10 +69,11 @@ namespace SharePointRunner.LauncherV1
             };
 
             manager.Urls.Add(tenantUrl);
-            manager.Receivers.Add(new PermissionsReceiver());
-            manager.Receivers.Add(new WebUsageReceiver());
-            manager.Receivers.Add(new GroupsReceiver());
-            manager.Receivers.Add(new WebPartsReceiver());
+            manager.Receivers.Add(new ManagedMetadataReceiver());
+            //manager.Receivers.Add(new PermissionsReceiver());
+            //manager.Receivers.Add(new WebUsageReceiver());
+            //manager.Receivers.Add(new GroupsReceiver());
+            //manager.Receivers.Add(new WebPartsReceiver());
 
             manager.Run();
         }
