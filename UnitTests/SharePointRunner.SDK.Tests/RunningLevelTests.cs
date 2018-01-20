@@ -55,6 +55,30 @@ namespace SharePointRunner.SDK.Tests
         {
             Assert.Equal(BaseRunningLevel.File, RunningLevel.File.BaseRunningLevel);
         }
+
+        [Fact]
+        public void TermStoreRunningLevelTest()
+        {
+            Assert.Equal(BaseRunningLevel.TermStore, RunningLevel.TermStore.BaseRunningLevel);
+        }
+
+        [Fact]
+        public void TermGroupRunningLevelTest()
+        {
+            Assert.Equal(BaseRunningLevel.TermGroup, RunningLevel.TermGroup.BaseRunningLevel);
+        }
+
+        [Fact]
+        public void TermSetRunningLevelTest()
+        {
+            Assert.Equal(BaseRunningLevel.TermSet, RunningLevel.TermSet.BaseRunningLevel);
+        }
+
+        [Fact]
+        public void TermRunningLevelTest()
+        {
+            Assert.Equal(BaseRunningLevel.Term, RunningLevel.Term.BaseRunningLevel);
+        }
         #endregion
 
         #region HasChild()

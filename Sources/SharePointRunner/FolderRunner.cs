@@ -67,6 +67,7 @@ namespace SharePointRunner
                 ViewXml = "<View><Query><Where><Eq><FieldRef Name='FSObjType' /><Value Type='Integer'>1</Value></Eq></Where></Query></View>"
             };
 
+            // Crawl sub folders
             ListItemCollection subFolders = Element.ListItemAllFields.ParentList.GetItems(subFoldersQuery);
             Context.Load(subFolders,
                 coll => coll.Include(

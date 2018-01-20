@@ -46,7 +46,27 @@ namespace SharePointRunner.SDK
         /// <summary>
         /// File level
         /// </summary>
-        File
+        File,
+
+        /// <summary>
+        /// Term store level
+        /// </summary>
+        TermStore,
+
+        /// <summary>
+        /// Term group level
+        /// </summary>
+        TermGroup,
+
+        /// <summary>
+        /// Term set level
+        /// </summary>
+        TermSet,
+
+        /// <summary>
+        /// Term
+        /// </summary>
+        Term
     }
 
     /// <summary>
@@ -59,14 +79,18 @@ namespace SharePointRunner.SDK
         /// </summary>
         public static readonly Dictionary<BaseRunningLevel, RunningLevel> Values = new List<RunningLevel>()
         {
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.SiteCollection } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.SiteCollection, BaseRunningLevel.TermStore } },
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.SiteCollection, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Site }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Site, Children = new List<BaseRunningLevel>() { BaseRunningLevel.List }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.List, Children = new List<BaseRunningLevel>() { BaseRunningLevel.View, BaseRunningLevel.Folder, BaseRunningLevel.ListItem }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.View },
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Folder, Children = new List<BaseRunningLevel>() { BaseRunningLevel.ListItem }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.ListItem, Children = new List<BaseRunningLevel>() { BaseRunningLevel.File }},
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.File }
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.File },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermStore, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermGroup } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermGroup, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermSet } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermSet, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Term } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Term }
         }.ToDictionary(r => r.BaseRunningLevel);
 
         /// <summary>
@@ -123,6 +147,26 @@ namespace SharePointRunner.SDK
         /// File Level
         /// </summary>
         public static RunningLevel File => Values[BaseRunningLevel.File];
+
+        /// <summary>
+        /// Term store level
+        /// </summary>
+        public static RunningLevel TermStore => Values[BaseRunningLevel.TermStore];
+
+        /// <summary>
+        /// Term group level
+        /// </summary>
+        public static RunningLevel TermGroup => Values[BaseRunningLevel.TermGroup];
+
+        /// <summary>
+        /// Term set level
+        /// </summary>
+        public static RunningLevel TermSet => Values[BaseRunningLevel.TermSet];
+
+        /// <summary>
+        /// Term
+        /// </summary>
+        public static RunningLevel Term => Values[BaseRunningLevel.Term];
 
         /// <summary>
         /// Know if the current running level has another running level to child level

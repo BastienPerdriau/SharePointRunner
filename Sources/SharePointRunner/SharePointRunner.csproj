@@ -102,6 +102,10 @@
     <Compile Include="SiteCollectionRunner.cs" />
     <Compile Include="SiteRunner.cs" />
     <Compile Include="TenantRunner.cs" />
+    <Compile Include="TermGroupRunner.cs" />
+    <Compile Include="TermRunner.cs" />
+    <Compile Include="TermSetRunner.cs" />
+    <Compile Include="TermStoreRunner.cs" />
     <Compile Include="ViewRunner.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -18,9 +18,6 @@ namespace SharePointRunner.LauncherV1
                 return;
             }
 
-            string folders = CamlQuery.CreateAllFoldersQuery().ViewXml;
-            string items = CamlQuery.CreateAllItemsQuery().ViewXml;
-
             string tenantUrl = args[0];
             string adminLogin = args[1];
             string adminPassword = args[2];
