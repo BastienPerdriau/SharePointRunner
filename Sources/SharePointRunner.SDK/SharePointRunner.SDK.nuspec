@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>bastien.perdriau@live.fr</authors>
+    <owners>bastien.perdriau@live.fr</owners>
+    <licenseUrl>https://github.com/BPerdriau/SharePointRunner/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/BPerdriau/SharePointRunner</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>sharepoint sharepoint-online office-365 csom</tags>
+  </metadata>
+</package>
