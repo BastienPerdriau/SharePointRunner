@@ -52,6 +52,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)bin\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)Examples\V2\SharePointRunner.LauncherV2\DLLs" /Y /I</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)bin\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)Examples\V2\SharePointRunner.LauncherV2\DLLs" /Y /I
+xcopy "$(ProjectDir)bin\$(Configuration)\CsvHelper.dll" "$(SolutionDir)Examples\V2\SharePointRunner.LauncherV2\DLLs" /Y /I</PostBuildEvent>
   </PropertyGroup>
 </Project>
