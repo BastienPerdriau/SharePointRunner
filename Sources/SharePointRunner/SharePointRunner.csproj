@@ -96,25 +96,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigFileInfo.cs" />
-    <Compile Include="FileRunner.cs" />
-    <Compile Include="FolderRunner.cs" />
-    <Compile Include="ListItemRunner.cs" />
-    <Compile Include="ListRunner.cs" />
-    <Compile Include="ClassParameter.cs" />
+    <Compile Include="Serialization\ConfigFileInfo.cs" />
+    <Compile Include="Runners\FileRunner.cs" />
+    <Compile Include="Runners\FolderRunner.cs" />
+    <Compile Include="Runners\ListItemRunner.cs" />
+    <Compile Include="Runners\ListRunner.cs" />
+    <Compile Include="Serialization\ClassParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReceiverAssembly.cs" />
-    <Compile Include="Runner.cs" />
+    <Compile Include="Serialization\ReceiverAssembly.cs" />
+    <Compile Include="Runners\Runner.cs" />
     <Compile Include="RunningManager.cs" />
     <Compile Include="SharePointRunner.cs" />
-    <Compile Include="SiteCollectionRunner.cs" />
-    <Compile Include="SiteRunner.cs" />
-    <Compile Include="TenantRunner.cs" />
-    <Compile Include="TermGroupRunner.cs" />
-    <Compile Include="TermRunner.cs" />
-    <Compile Include="TermSetRunner.cs" />
-    <Compile Include="TermStoreRunner.cs" />
-    <Compile Include="ViewRunner.cs" />
+    <Compile Include="Runners\SiteCollectionRunner.cs" />
+    <Compile Include="Runners\SiteRunner.cs" />
+    <Compile Include="Runners\TenantRunner.cs" />
+    <Compile Include="Runners\TermGroupRunner.cs" />
+    <Compile Include="Runners\TermRunner.cs" />
+    <Compile Include="Runners\TermSetRunner.cs" />
+    <Compile Include="Runners\TermStoreRunner.cs" />
+    <Compile Include="Runners\ViewRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharePointRunner.SDK\SharePointRunner.SDK.csproj">

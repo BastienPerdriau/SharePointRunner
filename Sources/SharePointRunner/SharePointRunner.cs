@@ -29,6 +29,7 @@ namespace SharePointRunner
         {
             ConfigFileInfo configFileInfo = default;
 
+            // TODO Adding XML validation schema and validate before deserialization
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(ConfigFileInfo));
@@ -56,6 +57,7 @@ namespace SharePointRunner
         {
             ConfigFileInfo configFileInfo = default;
 
+            // TODO Adding JSON validation schema and validate before deserialization
             try
             {
                 JsonSerializer serializer = new JsonSerializer();
