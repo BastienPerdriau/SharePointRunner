@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8CF97AEF-1BB6-4CAB-ABC5-221FFE5E56C6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>SharePointRunner.LauncherV2</RootNamespace>
-    <AssemblyName>SharePointRunner.LauncherV2</AssemblyName>
+    <ProjectGuid>{D37F217A-F8A5-4715-A92D-4BACB909E124}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CommonLibraryExample</RootNamespace>
+    <AssemblyName>CommonLibraryExample</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=6.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\CsvHelper.6.1.1\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,36 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="CsvWriterWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="ConfigFiles\ConfigFile.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ConfigFiles\ConfigFile.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Sources\SharePointRunner.SDK\SharePointRunner.SDK.csproj">
-      <Project>{7FF0252F-82FE-423A-A75E-4BCE3A82CD0D}</Project>
-      <Name>SharePointRunner.SDK</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Sources\SharePointRunner\SharePointRunner.csproj">
-      <Project>{860b8aac-87e6-4a3f-8f4f-2be4054e8d4f}</Project>
-      <Name>SharePointRunner</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonLibraryExample\CommonLibraryExample.csproj">
-      <Project>{D37F217A-F8A5-4715-A92D-4BACB909E124}</Project>
-      <Name>CommonLibraryExample</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DLLs\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)bin\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)Examples\V2\SharePointRunner.LauncherV2\DLLs" /Y /I</PostBuildEvent>
+  </PropertyGroup>
 </Project>
