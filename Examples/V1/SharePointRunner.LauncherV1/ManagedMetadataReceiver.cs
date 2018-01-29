@@ -1,10 +1,8 @@
 ﻿using CsvHelper.Configuration;
 using Microsoft.Online.SharePoint.TenantAdministration;
-using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
 using SharePointRunner.SDK;
 using System;
-using System.Collections.Generic;
 
 namespace SharePointRunner.LauncherV1
 {
