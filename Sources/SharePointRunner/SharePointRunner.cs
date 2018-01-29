@@ -94,6 +94,7 @@ namespace SharePointRunner
         /// </summary>
         /// <param name="configFilePath">Path of the JSON configuration file</param>
         /// <returns>Running manager used</returns>
+        // TODO Add credentials optionnal parameter, overriding file credentials if there is
         public static RunningManager Run(string configFilePath)
         {
             // Check file exists
