@@ -14,20 +14,21 @@ namespace SharePointRunner
     /// </summary>
     public class RunningManager
     {
+        // TODO Add a state to RunningManager and Runner (eg. Pending, Running, Finished)
         /// <summary>
         /// Logger
         /// </summary>
-        public static readonly ILog Logger = LogManager.GetLogger(typeof(RunningManager).Namespace);
-
-        /// <summary>
-        /// List of receivers
-        /// </summary>
-        public List<Receiver> Receivers { get; } = new List<Receiver>();
+        internal static readonly ILog Logger = LogManager.GetLogger(typeof(RunningManager).Namespace);
 
         /// <summary>
         /// SharePoint Credentials
         /// </summary>
         public SharePointOnlineCredentials Credentials { get; set; }
+
+        /// <summary>
+        /// List of receivers
+        /// </summary>
+        public List<Receiver> Receivers { get; } = new List<Receiver>();
 
         /// <summary>
         /// List of URLs
@@ -44,6 +45,7 @@ namespace SharePointRunner
         /// </summary>
         public void Run()
         {
+            // TODO If 0 receiver, do not start run
             Logger.Info("RunningManager initialized");
             List<Runner> runners;
             switch (StartingRunningLevel.BaseRunningLevel)

@@ -1,0 +1,43 @@
+﻿{
+  "login": "login",
+  "password": "motdepasse",
+  "receivers": [
+    {
+      "assemblyName": "assembly1",
+      "className": "class1"
+    },
+    {
+      "assemblyName": "assembly2",
+      "className": "class2",
+      "parameters": [
+        {
+          "name": "Param",
+          "value":  "test"
+        }
+      ]
+    },
+    {
+      "assemblyName": "assembly3",
+      "className": "class3",
+      "parameters": [
+        {
+          "name": "Param1",
+          "value": "p1t1"
+        },
+        {
+          "name": "Param1",
+          "value": "p1t2"
+        },
+        {
+          "name": "Param2",
+          "value": "p2"
+        }
+      ]
+    }
+  ],
+  "urls": [
+    "url1",
+    "url2"
+  ],
+  "startRunningLevel":  "Tenant"
+}
