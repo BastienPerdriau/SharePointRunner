@@ -45,7 +45,13 @@ namespace SharePointRunner
         /// </summary>
         public void Run()
         {
-            // TODO If 0 receiver, do not start run
+            if (Receivers.Count == 0)
+            {
+                Exception ex = new Exception($"No receiver declared");
+                Logger.Warn(ex.Message, ex);
+                return;
+            }
+
             Logger.Info("RunningManager initialized");
             List<Runner> runners;
             switch (StartingRunningLevel.BaseRunningLevel)

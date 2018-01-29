@@ -91,30 +91,55 @@ namespace SharePointRunner
             foreach (ReceiverAssembly receiverAssembly in configFileInfo.Receivers)
             {
                 // Check if the dll file exists
-                if (IO.File.Exists($"{receiverAssembly.AssemblyName}.dll"))
-                {
-                    // Load the assembly
-                    Assembly assembly = Assembly.LoadFile(Path.Combine(executablePath, $"{receiverAssembly.AssemblyName}.dll"));
-
-                    // Get the class instantiation
-                    Type receiverClass = assembly.GetType($"{receiverAssembly.AssemblyName}.{receiverAssembly.ClassName}");
-                    var receiver = (Receiver)Activator.CreateInstance(receiverClass);
-
-                    // Set properties
-                    receiver.IncludeSubSites = receiverAssembly.IncludeSubSites;
-                    receiver.IncludeHiddenLists = receiverAssembly.IncludeHiddenLists;
-                    
-                    // TODO Pass parameters
-
-
-                    // Add receiver to receivers list of the running manager
-                    runningManager.Receivers.Add(receiver);
-                }
-                else
+                if (!IO.File.Exists($"{receiverAssembly.AssemblyName}.dll"))
                 {
                     Exception ex = new Exception($"The '{receiverAssembly.AssemblyName}.dll' file does not exist");
-                    Logger.Error(ex.Message, ex);
+                    Logger.Warn(ex.Message, ex);
+                    continue;
                 }
+
+                // Load the assembly
+                Assembly assembly = Assembly.LoadFile(Path.Combine(executablePath, $"{receiverAssembly.AssemblyName}.dll"));
+
+                // Check if the assembly is null
+                if (assembly == null)
+                {
+                    Exception ex = new Exception($"The '{receiverAssembly.AssemblyName}' assembly is not loaded");
+                    Logger.Warn(ex.Message, ex);
+                    continue;
+                }
+
+                // Get the type of the class
+                Type receiverClass = assembly.GetType($"{receiverAssembly.AssemblyName}.{receiverAssembly.ClassName}");
+
+                // Check if the type exists
+                if (receiverClass == null)
+                {
+                    Exception ex = new Exception($"The '{receiverAssembly.ClassName}' type does not exist");
+                    Logger.Warn(ex.Message, ex);
+                    continue;
+                }
+
+                // Instantiate the class
+                var receiver = (Receiver)Activator.CreateInstance(receiverClass);
+
+                // Check if the class is instantiated 
+                if (receiver == null)
+                {
+                    Exception ex = new Exception($"The '{receiverAssembly.ClassName}' class is not instantiated");
+                    Logger.Warn(ex.Message, ex);
+                    continue;
+                }
+
+                // Set properties
+                receiver.IncludeSubSites = receiverAssembly.IncludeSubSites;
+                receiver.IncludeHiddenLists = receiverAssembly.IncludeHiddenLists;
+
+                // TODO Pass parameters
+
+
+                // Add receiver to receivers list of the running manager
+                runningManager.Receivers.Add(receiver);
             }
 
             // Create the SharePoint Online credentials if none is passed to parameters
