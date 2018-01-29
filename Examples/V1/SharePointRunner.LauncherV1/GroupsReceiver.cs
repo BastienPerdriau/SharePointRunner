@@ -53,7 +53,6 @@ namespace SharePointRunner.LauncherV1
 
     public class GroupsReceiver : Receiver
     {
-        // TODO V2 To parameters
         List<string> groupNames = new List<string>() { "owners" };
 
         public override void OnSiteCollectionRunningStart(Site site, Web rootWeb)
