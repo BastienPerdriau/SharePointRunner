@@ -1,8 +1,12 @@
 ﻿using log4net;
+using Microsoft.SharePoint.Client;
 using Newtonsoft.Json;
+using SharePointRunner.SDK;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Xml.Serialization;
+using IO = System.IO;
 
 namespace SharePointRunner
 {
@@ -74,31 +78,81 @@ namespace SharePointRunner
         /// Get the running manager from the configuration file info
         /// </summary>
         /// <param name="configFileInfo">Configuration information from the file</param>
+        /// <param name="credentials">SharePoint Online credentials</param>
         /// <returns>Running manager</returns>
-        private static RunningManager GetRunningManagerFromConfigFile(ConfigFileInfo configFileInfo)
+        private static RunningManager GetRunningManagerFromConfigFile(ConfigFileInfo configFileInfo, SharePointOnlineCredentials credentials = null)
         {
-            // TODO Get DLLs classes from assemblies
+            RunningManager runningManager = new RunningManager();
+            string executablePath = Directory.GetCurrentDirectory();
 
-            // TODO Create the SharePoint Online credentials or prompt the user if they are not in the config file
+            // Get DLLs classes from assemblies
+            foreach (ReceiverAssembly receiverAssembly in configFileInfo.Receivers)
+            {
+                // Check if the dll file exists
+                if (IO.File.Exists($"{receiverAssembly.AssemblyName}.dll"))
+                {
+                    // Load the assembly
+                    Assembly assembly = Assembly.LoadFile(Path.Combine(executablePath, $"{receiverAssembly.AssemblyName}.dll"));
 
-            // TODO Get the URLs
+                    // Get the class instantiation
+                    Type receiverClass = assembly.GetType($"{receiverAssembly.AssemblyName}.{receiverAssembly.ClassName}");
+                    var receiver = (Receiver)Activator.CreateInstance(receiverClass);
 
-            // TODO Get the StartingRunningLevel from its string name
+                    // Set properties
+                    receiver.IncludeSubSites = receiverAssembly.IncludeSubSites;
+                    receiver.IncludeHiddenLists = receiverAssembly.IncludeHiddenLists;
+                    
+                    // TODO Pass parameters
+
+
+                    // Add receiver to receivers list of the running manager
+                    runningManager.Receivers.Add(receiver);
+                }
+                else
+                {
+                    Exception ex = new Exception($"The '{receiverAssembly.AssemblyName}.dll' file does not exist");
+                    Logger.Error(ex.Message, ex);
+                }
+            }
+
+            // Create the SharePoint Online credentials if none is passed to parameters
+            if (credentials == null)
+            {
+                if (!string.IsNullOrWhiteSpace(configFileInfo.Login) && configFileInfo.SecuredPassword != null)
+                {
+                    credentials = new SharePointOnlineCredentials(configFileInfo.Login, configFileInfo.SecuredPassword);
+                }
+                else
+                {
+                    Exception ex = new Exception("No credentials provided. Please provide SharePoint Online credentials in the configuration file or calling the Run() method");
+                    Logger.Error(ex.Message, ex);
+                    throw ex;
+                }
+            }
+
+            // Set credentials
+            runningManager.Credentials = credentials;
+
+            // Get the URLs
+            runningManager.Urls.AddRange(configFileInfo.Urls);
+
+            // Get the StartingRunningLevel from its string name
+            runningManager.StartingRunningLevel = configFileInfo.StartRunningLevel;
 
             // Return the running manager
-            return new RunningManager();
+            return runningManager;
         }
 
         /// <summary>
         /// Start a run using the information of the configuration file
         /// </summary>
         /// <param name="configFilePath">Path of the JSON configuration file</param>
+        /// <param name="credentials">SharePoint Online credentials</param>
         /// <returns>Running manager used</returns>
-        // TODO Add credentials optionnal parameter, overriding file credentials if there is
-        public static RunningManager Run(string configFilePath)
+        public static RunningManager Run(string configFilePath, SharePointOnlineCredentials credentials = null)
         {
             // Check file exists
-            if (!File.Exists(configFilePath))
+            if (!IO.File.Exists(configFilePath))
             {
                 Exception ex = new Exception("File does not exist");
                 Logger.Error(ex.Message, ex);
@@ -126,7 +180,7 @@ namespace SharePointRunner
             }
 
             // Instanciate and feed running manager
-            RunningManager runningManager = GetRunningManagerFromConfigFile(configFileInfo);
+            RunningManager runningManager = GetRunningManagerFromConfigFile(configFileInfo, credentials);
 
             // Start the process
             runningManager?.Run();

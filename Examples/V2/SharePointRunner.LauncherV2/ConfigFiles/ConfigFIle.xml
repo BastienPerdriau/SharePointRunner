@@ -1,9 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
-  <Login>login</Login>
-  <Password>motdepasse</Password>
+  <Login>admin@M365x407070.onmicrosoft.com</Login>
+  <Password>bastienp@1138</Password>
+  <!--<Login>login</Login>
+  <Password>motdepasse</Password>-->
   <Receivers>
-    <Receiver AssemblyName="assembly1" ClassName="class1" />
+    <Receiver AssemblyName="FirstLibraryExample" ClassName="GroupsReceiver">
+      <Parameter Name="groupNames">owners</Parameter>
+    </Receiver>
+    <Receiver AssemblyName="FirstLibraryExample" ClassName="PermissionsReceiver" />
+    <Receiver AssemblyName="SecondLibraryExample" ClassName="ManagedMetadataReceiver" />
+    <Receiver AssemblyName="SecondLibraryExample" ClassName="WebPartsReceiver" />
+    <Receiver AssemblyName="SecondLibraryExample" ClassName="WebUsageReceiver" />
+    <!--<Receiver AssemblyName="assembly1" ClassName="class1" />
     <Receiver AssemblyName="assembly2" ClassName="class2">
       <Parameter Name="Param">test</Parameter>
     </Receiver>
@@ -11,11 +20,12 @@
       <Parameter Name="Param1">p1t1</Parameter>
       <Parameter Name="Param1">p1t2</Parameter>
       <Parameter Name="Param2">p2</Parameter>
-    </Receiver>
+    </Receiver>-->
   </Receivers>
   <Urls>
-    <Url>url1</Url>
-    <Url>url2</Url>
+    <Url>https://M365x407070-admin.sharepoint.com</Url>
+    <!--<Url>url1</Url>
+    <Url>url2</Url>-->
   </Urls>
   <StartRunningLevel>Tenant</StartRunningLevel>
 </Configuration>

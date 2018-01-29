@@ -53,7 +53,7 @@ namespace SecondLibraryExample
                 t => t.RootSiteUrl);
             tenant.Context.ExecuteQuery();
 
-            string managedMetadataFileName = $"AuditManagedMaetadata--{DateTime.Now.ToString("yyyy-MM-dd HH,mm,ss")}.csv";
+            string managedMetadataFileName = $"AuditManagedMetadata--{DateTime.Now.ToString("yyyy-MM-dd HH,mm,ss")}.csv";
             managedMetadataFileWriter = new CsvWriterWrapper<TermInfo, TermInfoMap>(managedMetadataFileName);
         }
 

@@ -52,7 +52,6 @@ namespace SharePointRunner
             }
         }
 
-        // TODO Map Receiver parameters
         /// <summary>
         /// List of the receivers assemblies
         /// </summary>
