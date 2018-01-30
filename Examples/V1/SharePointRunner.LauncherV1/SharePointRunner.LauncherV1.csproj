@@ -109,6 +109,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="settings.codeclonesettings" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Sources\SharePointRunner.SDK\SharePointRunner.SDK.csproj">

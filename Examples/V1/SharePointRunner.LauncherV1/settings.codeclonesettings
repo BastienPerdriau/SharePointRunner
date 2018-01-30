@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeCloneSettings>
+  <Exclusions>
+    <Namespace>SharePointRunner.LauncherV1</Namespace>
+  </Exclusions>
+</CodeCloneSettings>
