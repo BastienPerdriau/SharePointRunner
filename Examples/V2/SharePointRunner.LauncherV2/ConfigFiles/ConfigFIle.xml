@@ -2,8 +2,10 @@
 <Configuration>
   <Login>admin@M365x407070.onmicrosoft.com</Login>
   <Password>bastienp@1138</Password>
+  <PathToDLL>bin</PathToDLL>
   <!--<Login>login</Login>
-  <Password>motdepasse</Password>-->
+  <Password>motdepasse</Password>
+  <PathToDLL>bin</PathToDLL>-->
   <Receivers>
     <Receiver AssemblyName="FirstLibraryExample" ClassName="GroupsReceiver">
       <Parameter Name="GroupNames">owners</Parameter>

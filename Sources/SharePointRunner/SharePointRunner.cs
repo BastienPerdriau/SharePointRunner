@@ -88,7 +88,6 @@ namespace SharePointRunner
         {
             RunningManager runningManager = new RunningManager();
             string executablePath = Directory.GetCurrentDirectory();
-            // TODO Add path to DLLs (optionnal) to set a sub file (eg. bin, dlls, ...)
 
             // Get DLLs classes from assemblies
             foreach (ReceiverAssembly receiverAssembly in configFileInfo.Receivers)
@@ -102,7 +101,7 @@ namespace SharePointRunner
                 }
 
                 // Load the assembly
-                Assembly assembly = Assembly.LoadFile(Path.Combine(executablePath, $"{receiverAssembly.AssemblyName}.dll"));
+                Assembly assembly = Assembly.LoadFile(Path.Combine(executablePath, configFileInfo.PathToDLL, $"{receiverAssembly.AssemblyName}.dll"));
 
                 // Check if the assembly is null
                 if (assembly == null)

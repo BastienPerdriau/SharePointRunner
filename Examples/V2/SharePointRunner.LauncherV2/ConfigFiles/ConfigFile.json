@@ -1,6 +1,7 @@
 ﻿{
   "login": "admin@M365x407070.onmicrosoft.com",
   "password": "bastienp@1138",
+  "pathToDLL": "bin",
   //"login": "login",
   //"password": "motdepasse",
   "receivers": [

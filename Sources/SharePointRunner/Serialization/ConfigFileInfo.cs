@@ -53,6 +53,13 @@ namespace SharePointRunner
         }
 
         /// <summary>
+        /// Path between the execution path of the application and the folder where are the assemblies
+        /// </summary>
+        [XmlElement("PathToDLL")]
+        [JsonProperty("pathToDLL")]
+        public string PathToDLL { get; set; } = string.Empty;
+
+        /// <summary>
         /// List of the receivers assemblies
         /// </summary>
         [XmlArray("Receivers")]
