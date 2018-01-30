@@ -25,7 +25,7 @@ namespace SharePointRunner
                 f => f.Name,
                 f => f.ServerRelativeUrl,
                 f => f.ListItemAllFields["FileRef"],
-                f => f.ListItemAllFields.ParentList);
+                f => f.ListItemAllFields.ParentList.ItemCount);
             Context.ExecuteQuery();
             RunningManager.Logger.Debug($"Folder | Name: {Element.Name} / URL: {Element.ServerRelativeUrl}");
 
@@ -36,16 +36,44 @@ namespace SharePointRunner
             // If at least one receiver run list items of deeper
             if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.ListItem)))
             {
-                // TODO V2 Manage large lists
-                CamlQuery itemsQuery = new CamlQuery()
-                {
-                    FolderServerRelativeUrl = Element.ListItemAllFields["FileRef"].ToString(),
-                    ViewXml = "<View><Query></Query></View>"
-                };
+                List<ListItem> items = new List<ListItem>();
 
-                ListItemCollection items = Element.ListItemAllFields.ParentList.GetItems(itemsQuery);
-                Context.Load(items);
-                Context.ExecuteQuery();
+                if (Element.ListItemAllFields.ParentList.ItemCount > 5000)
+                {
+                    // Manage large lists
+                    int count = 0;
+                    int inter = 1000;
+                    int countList = Element.ListItemAllFields.ParentList.ItemCount;
+
+                    while (count < countList)
+                    {
+                        CamlQuery itemsQuery = new CamlQuery()
+                        {
+                            FolderServerRelativeUrl = Element.ListItemAllFields["FileRef"].ToString(),
+                            ViewXml = $"<View><Query><Where><And><Gt><FieldRef Name='ID'/><Value Type='Counter'>{count}</Value></Gt><Leq><FieldRef Name='ID'/><Value Type='Counter'>{count + inter}</Value></Leq></And></Where><OrderBy Override='TRUE'><FieldRef Name='ID'/></OrderBy></Query></View><RowLimit>{inter}</RowLimit>"
+                        };
+
+                        ListItemCollection itemsResult = Element.ListItemAllFields.ParentList.GetItems(itemsQuery);
+                        Context.Load(itemsResult);
+                        Context.ExecuteQuery();
+                        items.AddRange(itemsResult);
+
+                        count += inter;
+                    }
+                }
+                else
+                {
+                    CamlQuery itemsQuery = new CamlQuery()
+                    {
+                        FolderServerRelativeUrl = Element.ListItemAllFields["FileRef"].ToString(),
+                        ViewXml = "<View><Query></Query></View>"
+                    };
+
+                    ListItemCollection itemsResult = Element.ListItemAllFields.ParentList.GetItems(itemsQuery);
+                    Context.Load(itemsResult);
+                    Context.ExecuteQuery();
+                    items = itemsResult.ToList();
+                }
 
                 List<ListItemRunner> itemRunners = new List<ListItemRunner>();
                 foreach (ListItem item in items)
@@ -60,19 +88,47 @@ namespace SharePointRunner
             RunningManager.Logger.Debug("FolderRunner OnFolderRunningEnd()");
             ActiveReceivers.ForEach(r => r.OnFolderRunningEnd(Element));
 
-            // TODO V2 Manage large lists
-            CamlQuery subFoldersQuery = new CamlQuery()
-            {
-                FolderServerRelativeUrl = Element.ListItemAllFields["FileRef"].ToString(),
-                ViewXml = "<View><Query><Where><Eq><FieldRef Name='FSObjType' /><Value Type='Integer'>1</Value></Eq></Where></Query></View>"
-            };
+            List<ListItem> subFolders = new List<ListItem>();
 
-            // Crawl sub folders
-            ListItemCollection subFolders = Element.ListItemAllFields.ParentList.GetItems(subFoldersQuery);
-            Context.Load(subFolders,
-                coll => coll.Include(
-                    f => f.Folder));
-            Context.ExecuteQuery();
+            if (Element.ListItemAllFields.ParentList.ItemCount > 5000)
+            {
+                // Manage large lists
+                int count = 0;
+                int inter = 1000;
+                int countList = Element.ListItemAllFields.ParentList.ItemCount;
+
+                while (count < countList)
+                {
+                    CamlQuery subFoldersQuery = new CamlQuery()
+                    {
+                        FolderServerRelativeUrl = Element.ListItemAllFields["FileRef"].ToString(),
+                        ViewXml = $"<View><Query><Where><And><And><Gt><FieldRef Name='ID'/><Value Type='Counter'>{count}</Value></Gt><Leq><FieldRef Name='ID'/><Value Type='Counter'>{count + inter}</Value></Leq></And><Eq><FieldRef Name='FSObjType' /><Value Type='Integer'>1</Value></Eq></And></Where><OrderBy Override='TRUE'><FieldRef Name='ID'/></OrderBy></Query></View><RowLimit>{inter}</RowLimit>"
+                    };
+
+                    ListItemCollection subFoldersResult = Element.ListItemAllFields.ParentList.GetItems(subFoldersQuery);
+                    Context.Load(subFoldersResult);
+                    Context.ExecuteQuery();
+                    subFolders.AddRange(subFoldersResult);
+
+                    count += inter;
+                }
+            }
+            else
+            {
+                CamlQuery subFoldersQuery = new CamlQuery()
+                {
+                    FolderServerRelativeUrl = Element.ListItemAllFields["FileRef"].ToString(),
+                    ViewXml = "<View><Query><Where><Eq><FieldRef Name='FSObjType' /><Value Type='Integer'>1</Value></Eq></Where></Query></View>"
+                };
+
+                // Crawl sub folders
+                ListItemCollection subFoldersResult = Element.ListItemAllFields.ParentList.GetItems(subFoldersQuery);
+                Context.Load(subFoldersResult,
+                    coll => coll.Include(
+                        f => f.Folder));
+                Context.ExecuteQuery();
+                subFolders = subFoldersResult.ToList();
+            }
 
             List<FolderRunner> folderRunners = new List<FolderRunner>();
             foreach (ListItem folder in subFolders)

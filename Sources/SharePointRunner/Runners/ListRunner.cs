@@ -50,17 +50,44 @@ namespace SharePointRunner
             // If at least one receiver run folders or deeper
             if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.Folder)))
             {
-                // TODO V2 Manage large lists
-                CamlQuery foldersQuery = new CamlQuery()
-                {
-                    ViewXml = "<View><Query><Where><Eq><FieldRef Name='FSObjType' /><Value Type='Integer'>1</Value></Eq></Where></Query></View>"
-                };
+                List<ListItem> folders = new List<ListItem>();
 
-                ListItemCollection folders = Element.GetItems(foldersQuery);
-                Context.Load(folders,
-                    coll => coll.Include(
-                        f => f.Folder));
-                Context.ExecuteQuery();
+                if (Element.ItemCount > 5000)
+                {
+                    // Manage large lists
+                    int count = 0;
+                    int inter = 1000;
+                    int countList = Element.ItemCount;
+
+                    while (count < countList)
+                    {
+                        CamlQuery foldersQuery = new CamlQuery()
+                        {
+                            ViewXml = $"<View><Query><Where><And><And><Gt><FieldRef Name='ID'/><Value Type='Counter'>{count}</Value></Gt><Leq><FieldRef Name='ID'/><Value Type='Counter'>{count + inter}</Value></Leq></And><Eq><FieldRef Name='FSObjType' /><Value Type='Integer'>1</Value></Eq></And></Where><OrderBy Override='TRUE'><FieldRef Name='ID'/></OrderBy></Query></View><RowLimit>{inter}</RowLimit>"
+                        };
+
+                        ListItemCollection foldersResult = Element.GetItems(foldersQuery);
+                        Context.Load(foldersResult);
+                        Context.ExecuteQuery();
+                        folders.AddRange(foldersResult);
+
+                        count += inter;
+                    }
+                }
+                else
+                {
+                    CamlQuery foldersQuery = new CamlQuery()
+                    {
+                        ViewXml = "<View><Query><Where><Eq><FieldRef Name='FSObjType' /><Value Type='Integer'>1</Value></Eq></Where></Query></View>"
+                    };
+
+                    ListItemCollection foldersResult = Element.GetItems(foldersQuery);
+                    Context.Load(foldersResult,
+                        coll => coll.Include(
+                            f => f.Folder));
+                    Context.ExecuteQuery();
+                    folders = foldersResult.ToList();
+                }
 
                 List<FolderRunner> folderRunners = new List<FolderRunner>();
                 foreach (ListItem folder in folders)
@@ -72,15 +99,42 @@ namespace SharePointRunner
             }
             else if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.ListItem)))
             {
-                // TODO V2 Manage large lists
-                CamlQuery itemsQuery = new CamlQuery()
-                {
-                    ViewXml = "<View Scope='RecursiveAll'><Query></Query></View>"
-                };
+                List<ListItem> items = new List<ListItem>();
 
-                ListItemCollection items = Element.GetItems(itemsQuery);
-                Context.Load(items);
-                Context.ExecuteQuery();
+                if (Element.ItemCount > 5000)
+                {
+                    // Manage large lists
+                    int count = 0;
+                    int inter = 1000;
+                    int countList = Element.ItemCount;
+
+                    while (count < countList)
+                    {
+                        CamlQuery itemsQuery = new CamlQuery()
+                        {
+                            ViewXml = $"<View Scope='RecursiveAll'><Query><Where><And><Gt><FieldRef Name='ID'/><Value Type='Counter'>{count}</Value></Gt><Leq><FieldRef Name='ID'/><Value Type='Counter'>{count + inter}</Value></Leq></And></Where><OrderBy Override='TRUE'><FieldRef Name='ID'/></OrderBy></Query></View><RowLimit>{inter}</RowLimit>"
+                        };
+
+                        ListItemCollection itemsResult = Element.GetItems(itemsQuery);
+                        Context.Load(itemsResult);
+                        Context.ExecuteQuery();
+                        items.AddRange(itemsResult);
+
+                        count += inter;
+                    }
+                }
+                else
+                {
+                    CamlQuery itemsQuery = new CamlQuery()
+                    {
+                        ViewXml = "<View Scope='RecursiveAll'><Query></Query></View>"
+                    };
+
+                    ListItemCollection itemsResult = Element.GetItems(itemsQuery);
+                    Context.Load(itemsResult);
+                    Context.ExecuteQuery();
+                    items = itemsResult.ToList();
+                }
 
                 List<ListItemRunner> itemRunners = new List<ListItemRunner>();
                 foreach (ListItem item in items)
