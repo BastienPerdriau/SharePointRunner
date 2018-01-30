@@ -10,8 +10,12 @@
       "includeSubSites": true,
       "parameters": [
         {
-          "name": "groupNames",
+          "name": "GroupNames",
           "value": "owners"
+        },
+        {
+          "name": "GroupNames",
+          "value": "readers"
         }
       ]
     },

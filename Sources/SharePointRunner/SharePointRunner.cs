@@ -3,7 +3,9 @@ using Microsoft.SharePoint.Client;
 using Newtonsoft.Json;
 using SharePointRunner.SDK;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
 using IO = System.IO;
@@ -86,6 +88,7 @@ namespace SharePointRunner
         {
             RunningManager runningManager = new RunningManager();
             string executablePath = Directory.GetCurrentDirectory();
+            // TODO Add path to DLLs (optionnal) to set a sub file (eg. bin, dlls, ...)
 
             // Get DLLs classes from assemblies
             foreach (ReceiverAssembly receiverAssembly in configFileInfo.Receivers)
@@ -135,8 +138,38 @@ namespace SharePointRunner
                 receiver.IncludeSubSites = receiverAssembly.IncludeSubSites;
                 receiver.IncludeHiddenLists = receiverAssembly.IncludeHiddenLists;
 
-                // TODO Pass parameters
+                // Pass parameters
+                List<string> parametersName = receiverAssembly.Parameters.Select(p => p.Name).Distinct().ToList();
 
+                foreach (string parameterName in parametersName)
+                {
+                    PropertyInfo prop = receiverClass.GetProperty(parameterName);
+
+                    // Check if the property exists
+                    if (prop == null)
+                    {
+                        Exception ex = new Exception($"The '{parameterName}' property does not exist");
+                        Logger.Warn(ex.Message, ex);
+                        continue;
+                    }
+
+                    if (prop.PropertyType == typeof(string))
+                    {
+                        // Set the string property with the first parameter passed in the configuration file
+                        prop.SetValue(receiver, receiverAssembly.Parameters.FirstOrDefault(p => p.Name == parameterName).Value);
+                    }
+                    else if (prop.PropertyType == typeof(List<string>))
+                    {
+                        // Set the list of strings properties with the paramters passed in the configuration file
+                        prop.SetValue(receiver, receiverAssembly.Parameters.Where(p => p.Name == parameterName).Select(p => p.Value).ToList());
+                    }
+                    else
+                    {
+                        Exception ex = new Exception($"The '{parameterName}' property is not a string or a list of strings");
+                        Logger.Warn(ex.Message, ex);
+                        continue;
+                    }
+                }
 
                 // Add receiver to receivers list of the running manager
                 runningManager.Receivers.Add(receiver);

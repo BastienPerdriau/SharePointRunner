@@ -54,8 +54,7 @@ namespace FirstLibraryExample
 
     public class GroupsReceiver : Receiver
     {
-        // TODO V2 To parameters
-        List<string> groupNames = new List<string>() { "owners" };
+        public List<string> GroupNames { get; set; }
 
         public override void OnSiteCollectionRunningStart(Site site, Web rootWeb)
         {
@@ -71,7 +70,7 @@ namespace FirstLibraryExample
             string groupsFileName = $"AuditGroups-{rootWeb.Title}-{DateTime.Now.ToString("yyyy-MM-dd HH,mm,ss")}.csv";
             CsvWriterWrapper<GroupUserInfo, GroupUserInfoMap> groupsFileWriter = new CsvWriterWrapper<GroupUserInfo, GroupUserInfoMap>(groupsFileName);
 
-            foreach (string groupName in groupNames)
+            foreach (string groupName in GroupNames)
             {
                 Group group = rootWeb.SiteGroups.FirstOrDefault(g => g.Title.ToLowerInvariant().Contains(groupName.ToLowerInvariant()));
 

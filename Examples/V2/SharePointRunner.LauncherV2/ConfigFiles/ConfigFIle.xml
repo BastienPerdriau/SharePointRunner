@@ -6,7 +6,8 @@
   <Password>motdepasse</Password>-->
   <Receivers>
     <Receiver AssemblyName="FirstLibraryExample" ClassName="GroupsReceiver">
-      <Parameter Name="groupNames">owners</Parameter>
+      <Parameter Name="GroupNames">owners</Parameter>
+      <Parameter Name="GroupNames">readers</Parameter>
     </Receiver>
     <Receiver AssemblyName="FirstLibraryExample" ClassName="PermissionsReceiver" />
     <Receiver AssemblyName="SecondLibraryExample" ClassName="ManagedMetadataReceiver" />
