@@ -123,7 +123,7 @@ namespace SharePointRunner
                 }
 
                 // Instantiate the class
-                var receiver = (Receiver)Activator.CreateInstance(receiverClass);
+                Receiver receiver = (Receiver)Activator.CreateInstance(receiverClass);
 
                 // Check if the class is instantiated 
                 if (receiver == null)

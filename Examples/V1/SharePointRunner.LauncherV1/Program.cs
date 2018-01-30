@@ -9,8 +9,6 @@ namespace SharePointRunner.LauncherV1
     {
         static void Main(string[] args)
         {
-            // TODO V2 Parameterize logs: file, console, trace
-            // TODO V3 Customize logs (activate or not, file, console, trace, log level, file location...)
             // TODO V4 Create PS Cmdlets
 
             //List<RunningLevel> levels = new List<RunningLevel>()

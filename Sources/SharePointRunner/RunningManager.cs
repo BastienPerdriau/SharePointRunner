@@ -50,8 +50,7 @@ namespace SharePointRunner
                 Logger.Warn(ex.Message, ex);
                 return;
             }
-
-            Logger.Info("RunningManager initialized");
+            
             List<Runner> runners;
             switch (StartingRunningLevel.BaseRunningLevel)
             {
