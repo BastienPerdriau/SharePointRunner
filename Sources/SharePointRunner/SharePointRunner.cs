@@ -175,8 +175,7 @@ namespace SharePointRunner
         /// </summary>
         /// <param name="configFilePath">Path of the JSON configuration file</param>
         /// <param name="credentials">SharePoint Online credentials</param>
-        /// <returns>Running manager used</returns>
-        public static RunningManager Run(string configFilePath, SharePointOnlineCredentials credentials = null)
+        public static void Run(string configFilePath, SharePointOnlineCredentials credentials = null)
         {
             // Check file exists
             if (!IO.File.Exists(configFilePath))
@@ -211,9 +210,6 @@ namespace SharePointRunner
 
             // Start the process
             runningManager?.Run();
-
-            // Return running manager
-            return runningManager;
         }
     }
 }

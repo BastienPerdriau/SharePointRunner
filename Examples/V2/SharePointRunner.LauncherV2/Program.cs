@@ -7,8 +7,8 @@
             string xmlConfigFilePath = "ConfigFiles/ConfigFile.xml";
             string jsonConfigFilePath = "ConfigFiles/ConfigFile.json";
 
-            RunningManager runmanager = SharePointRunner.Run(xmlConfigFilePath);
-            //RunningManager runmanager = SharePointRunner.Run(jsonConfigFilePath);
+            SharePointRunner.Run(xmlConfigFilePath);
+            //SharePointRunner.Run(jsonConfigFilePath);
         }
     }
 }

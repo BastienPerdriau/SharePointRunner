@@ -14,7 +14,6 @@ namespace SharePointRunner
     /// </summary>
     public class RunningManager
     {
-        // TODO Add a state to RunningManager and Runner (eg. Pending, Running, Finished)
         /// <summary>
         /// Logger
         /// </summary>
@@ -156,11 +155,11 @@ namespace SharePointRunner
                 string webUrl = string.Empty;
                 if (Regex.IsMatch(listUrl, @"\/Lists\/", RegexOptions.IgnoreCase))
                 {
-                    webUrl = Regex.Match(webUrl, @"(.*)\/Lists\/.*", RegexOptions.IgnoreCase).Groups[1].Value;
+                    webUrl = Regex.Match(listUrl, @"(.*)\/Lists\/.*", RegexOptions.IgnoreCase).Groups[1].Value;
                 }
                 else
                 {
-                    webUrl = Regex.Match(webUrl, @"(.*)\/.*", RegexOptions.IgnoreCase).Groups[1].Value;
+                    webUrl = Regex.Match(listUrl, @"(.*)\/.*", RegexOptions.IgnoreCase).Groups[1].Value;
                 }
 
                 ClientContext ctx = OpenClientContext(webUrl);
