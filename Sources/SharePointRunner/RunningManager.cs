@@ -147,19 +147,13 @@ namespace SharePointRunner
             // Open each web then get list
             foreach (string listUrl in listUrls)
             {
-                string listServerRelativeUrl = Regex.Match(listUrl, @"(?:http|https):\/\/[^\/]*(.*)", RegexOptions.IgnoreCase).Groups[1].Value;
+                Match match = Regex.Match(listUrl, @"(((?:http|https):\/\/[^\/]*).*[^\/Lists\/])(\/.*)", RegexOptions.IgnoreCase);
 
-                // Get web url from listUrls
-                // TODO V2 Do with only one regex
-                string webUrl = string.Empty;
-                if (Regex.IsMatch(listUrl, @"\/Lists\/", RegexOptions.IgnoreCase))
-                {
-                    webUrl = Regex.Match(listUrl, @"(.*)\/Lists\/.*", RegexOptions.IgnoreCase).Groups[1].Value;
-                }
-                else
-                {
-                    webUrl = Regex.Match(listUrl, @"(.*)\/.*", RegexOptions.IgnoreCase).Groups[1].Value;
-                }
+                // Get web url from listUrl
+                string webUrl = $"{match.Groups[1].Value}{match.Groups[2].Value}";
+
+                // Get the list server relative url from the listUrl
+                string listServerRelativeUrl = $"{match.Groups[2].Value}{match.Groups[3].Value}";
 
                 ClientContext ctx = OpenClientContext(webUrl);
                 Web web = ctx.Web;
