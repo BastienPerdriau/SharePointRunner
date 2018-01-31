@@ -4,14 +4,14 @@
     <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>bastien.perdriau@live.fr</authors>
-    <owners>bastien.perdriau@live.fr</owners>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
     <licenseUrl>https://github.com/BPerdriau/SharePointRunner/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/BPerdriau/SharePointRunner</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>.</releaseNotes>
+    <releaseNotes>Release</releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>sharepoint sharepoint-online office-365 csom</tags>
+    <tags>sharepoint sharepoint-online office365 csom</tags>
   </metadata>
 </package>
