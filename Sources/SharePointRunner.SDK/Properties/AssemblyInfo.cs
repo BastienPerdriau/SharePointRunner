@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SharePointRunner.SDK")]
 [assembly: AssemblyDescription("SDK of the tool to run processes accross a SharePoint Online structure, from tenant to list items and files")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Bastien Perdriau")]
 [assembly: AssemblyProduct("SharePointRunner.SDK")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
