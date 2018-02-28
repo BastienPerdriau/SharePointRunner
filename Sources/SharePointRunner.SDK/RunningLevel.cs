@@ -14,6 +14,26 @@ namespace SharePointRunner.SDK
         Tenant,
 
         /// <summary>
+        /// Term store level
+        /// </summary>
+        TermStore,
+
+        /// <summary>
+        /// Term group level
+        /// </summary>
+        TermGroup,
+
+        /// <summary>
+        /// Term set level
+        /// </summary>
+        TermSet,
+
+        /// <summary>
+        /// Term
+        /// </summary>
+        Term,
+
+        /// <summary>
         /// Site collection level
         /// </summary>
         SiteCollection,
@@ -46,27 +66,7 @@ namespace SharePointRunner.SDK
         /// <summary>
         /// File level
         /// </summary>
-        File,
-
-        /// <summary>
-        /// Term store level
-        /// </summary>
-        TermStore,
-
-        /// <summary>
-        /// Term group level
-        /// </summary>
-        TermGroup,
-
-        /// <summary>
-        /// Term set level
-        /// </summary>
-        TermSet,
-
-        /// <summary>
-        /// Term
-        /// </summary>
-        Term
+        File
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ namespace SharePointRunner.SDK
         /// </summary>
         public static readonly Dictionary<BaseRunningLevel, RunningLevel> Values = new List<RunningLevel>()
         {
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Tenant, Parent = null, Children = new List<BaseRunningLevel>() { BaseRunningLevel.SiteCollection, BaseRunningLevel.TermStore } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Tenant, Parent = null, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermStore, BaseRunningLevel.SiteCollection } },
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.SiteCollection, Parent = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Site }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Site, Parent = BaseRunningLevel.SiteCollection, Children = new List<BaseRunningLevel>() { BaseRunningLevel.List }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.List, Parent = BaseRunningLevel.Site, Children = new List<BaseRunningLevel>() { BaseRunningLevel.View, BaseRunningLevel.Folder, BaseRunningLevel.ListItem }},
@@ -119,6 +119,26 @@ namespace SharePointRunner.SDK
         public static RunningLevel Tenant => Values[BaseRunningLevel.Tenant];
 
         /// <summary>
+        /// Term store level
+        /// </summary>
+        public static RunningLevel TermStore => Values[BaseRunningLevel.TermStore];
+
+        /// <summary>
+        /// Term group level
+        /// </summary>
+        public static RunningLevel TermGroup => Values[BaseRunningLevel.TermGroup];
+
+        /// <summary>
+        /// Term set level
+        /// </summary>
+        public static RunningLevel TermSet => Values[BaseRunningLevel.TermSet];
+
+        /// <summary>
+        /// Term
+        /// </summary>
+        public static RunningLevel Term => Values[BaseRunningLevel.Term];
+
+        /// <summary>
         /// Site collection level
         /// </summary>
         public static RunningLevel SiteCollection => Values[BaseRunningLevel.SiteCollection];
@@ -152,26 +172,6 @@ namespace SharePointRunner.SDK
         /// File Level
         /// </summary>
         public static RunningLevel File => Values[BaseRunningLevel.File];
-
-        /// <summary>
-        /// Term store level
-        /// </summary>
-        public static RunningLevel TermStore => Values[BaseRunningLevel.TermStore];
-
-        /// <summary>
-        /// Term group level
-        /// </summary>
-        public static RunningLevel TermGroup => Values[BaseRunningLevel.TermGroup];
-
-        /// <summary>
-        /// Term set level
-        /// </summary>
-        public static RunningLevel TermSet => Values[BaseRunningLevel.TermSet];
-
-        /// <summary>
-        /// Term
-        /// </summary>
-        public static RunningLevel Term => Values[BaseRunningLevel.Term];
 
         /// <summary>
         /// Know if the current running level has another one as parent level

@@ -14,6 +14,14 @@ This class can override these methods :
 
 - `OnStart()` : Executed at the very start of the process, can be used to setup a file
 - `OnTenantRunningStart(Tenant tenant)` : Executed at the start of the process for the tenant and expose the `Tenant` object
+- `OnTermStoreRunningStart(TermStore termStore)` : Executed at the start of the process for a term store and expose the `TermStore` object
+- `OnTermGroupRunningStart(TermGroup termGroup)` : Executed at the start of the process for a term group and expose the `TermGroup` object
+- `OnTermSetRunningStart(TermSet termSet)` : Executed at the start of the process for a term set and expose the `TermSet` object
+- `OnTermRunningStart(Term term)` : Executed at the start of the process for a term and expose the `Term` object
+- `OnTermRunningEnd(Term term)` : Executed at the end of the process for a term and expose the `Term` object
+- `OnTermSetRunningEnd(TermSet termSet)` : Executed at the end of the process for a term set and expose the `TermSet` object
+- `OnTermGroupRunningEnd(TermGroup termGroup)` : Executed at the end of the process for a term group and expose the `TermGroup` object
+- `OnTermStoreRunningEnd(TermStore termStore)` : Executed at the end of the process for a term store and expose the `TermStore` object
 - `OnSiteCollectionRunningStart(Site site, Web rootSite)` : Executed at the start of the process for a site collection and expose the `Site` object and the `Web` for the root site
 - `OnSiteRunningStart(Web web)` : Executed at the start of the process for a site and expose the `Web` object
 - `OnListRunningStart(List list)` : Executed at the start of the process for a list and expose the `List` object
@@ -24,14 +32,6 @@ This class can override these methods :
 - `OnSiteRunningEnd(Web web)` : Executed at the end of the process for a site (after the lists) and expose the `Web` object
 - `OnSiteRunningEndAfterSubSites(Web web)` : Executed at the end of the process for a site (after the sub sites) and expose the `Web` object
 - `OnSiteCollectionRunningEnd(Site site, Web rootSite)` : Executed at the end of the process for a site collection and expose the `Site` object and the `Web` for the root site
-- `OnTermStoreRunningStart(TermStore termStore)` : Executed at the start of the process for a term store and expose the `TermStore` object
-- `OnTermGroupRunningStart(TermGroup termGroup)` : Executed at the start of the process for a term group and expose the `TermGroup` object
-- `OnTermSetRunningStart(TermSet termSet)` : Executed at the start of the process for a term set and expose the `TermSet` object
-- `OnTermRunningStart(Term term)` : Executed at the start of the process for a term and expose the `Term` object
-- `OnTermRunningEnd(Term term)` : Executed at the end of the process for a term and expose the `Term` object
-- `OnTermSetRunningEnd(TermSet termSet)` : Executed at the end of the process for a term set and expose the `TermSet` object
-- `OnTermGroupRunningEnd(TermGroup termGroup)` : Executed at the end of the process for a term group and expose the `TermGroup` object
-- `OnTermStoreRunningEnd(TermStore termStore)` : Executed at the end of the process for a term store and expose the `TermStore` object
 - `OnTenantRunningEnd(Tenant tenant)` : Executed at the end of the process for the tenant and expose the `Tenant` object
 - `OnEnd()` : Executed at the very end of the process, can be used to export a file of make an external call
 

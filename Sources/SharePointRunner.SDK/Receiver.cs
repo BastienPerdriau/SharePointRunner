@@ -90,6 +90,54 @@ namespace SharePointRunner.SDK
         public virtual void OnTenantRunningStart(Tenant tenant) { }
 
         /// <summary>
+        /// Event at the start of handling the term store
+        /// </summary>
+        /// <param name="termStore">Term store</param>
+        public virtual void OnTermStoreRunningStart(TermStore termStore) { }
+
+        /// <summary>
+        /// Event at the start of handling a term group
+        /// </summary>
+        /// <param name="termGroup">Term group</param>
+        public virtual void OnTermGroupRunningStart(TermGroup termGroup) { }
+
+        /// <summary>
+        /// Event at the start of handling a term set
+        /// </summary>
+        /// <param name="termSet">Term set</param>
+        public virtual void OnTermSetRunningStart(TermSet termSet) { }
+
+        /// <summary>
+        /// Event at the start of handling a term
+        /// </summary>
+        /// <param name="term">Term</param>
+        public virtual void OnTermRunningStart(Term term) { }
+
+        /// <summary>
+        /// Event at the end of handling a term
+        /// </summary>
+        /// <param name="term">Term</param>
+        public virtual void OnTermRunningEnd(Term term) { }
+
+        /// <summary>
+        /// Event at the end of handling a term set
+        /// </summary>
+        /// <param name="termSet">Term set</param>
+        public virtual void OnTermSetRunningEnd(TermSet termSet) { }
+
+        /// <summary>
+        /// Event at the end of handling a term group
+        /// </summary>
+        /// <param name="termGroup">Term group</param>
+        public virtual void OnTermGroupRunningEnd(TermGroup termGroup) { }
+
+        /// <summary>
+        /// Event at the end of handling the term store
+        /// </summary>
+        /// <param name="termStore">Term store</param>
+        public virtual void OnTermStoreRunningEnd(TermStore termStore) { }
+
+        /// <summary>
         /// Event at the start of handling a site collection
         /// </summary>
         /// <param name="site">Site collection</param>
@@ -168,54 +216,6 @@ namespace SharePointRunner.SDK
         /// <param name="site">Site collection</param>
         /// <param name="rootWeb">Root site</param>
         public virtual void OnSiteCollectionRunningEnd(Site site, Web rootWeb) { }
-
-        /// <summary>
-        /// Event at the start of handling the term store
-        /// </summary>
-        /// <param name="termStore">Term store</param>
-        public virtual void OnTermStoreRunningStart(TermStore termStore) { }
-
-        /// <summary>
-        /// Event at the start of handling a term group
-        /// </summary>
-        /// <param name="termGroup">Term group</param>
-        public virtual void OnTermGroupRunningStart(TermGroup termGroup) { }
-
-        /// <summary>
-        /// Event at the start of handling a term set
-        /// </summary>
-        /// <param name="termSet">Term set</param>
-        public virtual void OnTermSetRunningStart(TermSet termSet) { }
-
-        /// <summary>
-        /// Event at the start of handling a term
-        /// </summary>
-        /// <param name="term">Term</param>
-        public virtual void OnTermRunningStart(Term term) { }
-
-        /// <summary>
-        /// Event at the end of handling a term
-        /// </summary>
-        /// <param name="term">Term</param>
-        public virtual void OnTermRunningEnd(Term term) { }
-
-        /// <summary>
-        /// Event at the end of handling a term set
-        /// </summary>
-        /// <param name="termSet">Term set</param>
-        public virtual void OnTermSetRunningEnd(TermSet termSet) { }
-
-        /// <summary>
-        /// Event at the end of handling a term group
-        /// </summary>
-        /// <param name="termGroup">Term group</param>
-        public virtual void OnTermGroupRunningEnd(TermGroup termGroup) { }
-
-        /// <summary>
-        /// Event at the end of handling the term store
-        /// </summary>
-        /// <param name="termStore">Term store</param>
-        public virtual void OnTermStoreRunningEnd(TermStore termStore) { }
 
         /// <summary>
         /// Event at the end of handling a tenant 
