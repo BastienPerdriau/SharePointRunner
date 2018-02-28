@@ -1,5 +1,6 @@
 ﻿using Microsoft.SharePoint.Client;
 using SharePointRunner.SDK;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SharePointRunner
@@ -29,6 +30,23 @@ namespace SharePointRunner
             // OnSiteCollectionRunningStart
             RunningManager.Logger.Debug("SiteCollectionRunner OnSiteCollectionRunningStart()");
             ActiveReceivers.ForEach(r => r.OnSiteCollectionRunningStart(Element, Element.RootWeb));
+
+            // If at least one receiver run groups
+            if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.Group)))
+            {
+                // Crawl groups
+                Context.Load(Element.RootWeb.SiteGroups);
+                Context.ExecuteQuery();
+
+                List<GroupRunner> groupRunners = new List<GroupRunner>();
+
+                foreach (Group group in Element.RootWeb.SiteGroups)
+                {
+                    groupRunners.Add(new GroupRunner(Manager, Context, group));
+                }
+
+                groupRunners.ForEach(r => r.Process());
+            }
 
             // If at least one receiver run sites or deeper
             if (Manager.Receivers.Any(r => r.IsReceiverCalledOrDeeper(RunningLevel.Site)))

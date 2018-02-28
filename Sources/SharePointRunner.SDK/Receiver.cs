@@ -1,5 +1,6 @@
 ﻿using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
+using SP = Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
 using System;
 using System.Collections.Generic;
@@ -143,6 +144,12 @@ namespace SharePointRunner.SDK
         /// <param name="site">Site collection</param>
         /// <param name="rootWeb">Root site</param>
         public virtual void OnSiteCollectionRunningStart(Site site, Web rootWeb) { }
+
+        /// <summary>
+        /// Event to handle a group
+        /// </summary>
+        /// <param name="group">Group</param>
+        public virtual void OnGroupRunning(SP.Group group) { }
 
         /// <summary>
         /// Event at the start of handling a site

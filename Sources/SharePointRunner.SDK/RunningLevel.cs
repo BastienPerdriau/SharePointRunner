@@ -39,6 +39,11 @@ namespace SharePointRunner.SDK
         SiteCollection,
 
         /// <summary>
+        /// Group level
+        /// </summary>
+        Group,
+
+        /// <summary>
         /// Site level
         /// </summary>
         Site,
@@ -84,7 +89,8 @@ namespace SharePointRunner.SDK
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermGroup, Parent = BaseRunningLevel.TermStore, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermSet } },
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermSet, Parent = BaseRunningLevel.TermGroup, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Term } },
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Term, Parent = BaseRunningLevel.TermSet },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.SiteCollection, Parent = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Site }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.SiteCollection, Parent = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Group, BaseRunningLevel.Site }},
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Group, Parent = BaseRunningLevel.SiteCollection },
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Site, Parent = BaseRunningLevel.SiteCollection, Children = new List<BaseRunningLevel>() { BaseRunningLevel.List }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.List, Parent = BaseRunningLevel.Site, Children = new List<BaseRunningLevel>() { BaseRunningLevel.View, BaseRunningLevel.Folder, BaseRunningLevel.ListItem }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.View, Parent = BaseRunningLevel.List },
@@ -142,6 +148,11 @@ namespace SharePointRunner.SDK
         /// Site collection level
         /// </summary>
         public static RunningLevel SiteCollection => Values[BaseRunningLevel.SiteCollection];
+
+        /// <summary>
+        /// Group level
+        /// </summary>
+        public static RunningLevel Group => Values[BaseRunningLevel.Group];
 
         /// <summary>
         /// Site level

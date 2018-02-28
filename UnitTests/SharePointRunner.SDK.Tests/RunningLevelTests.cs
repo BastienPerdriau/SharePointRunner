@@ -79,6 +79,12 @@ namespace SharePointRunner.SDK.Tests
         {
             Assert.Equal(BaseRunningLevel.Term, RunningLevel.Term.BaseRunningLevel);
         }
+
+        [Fact]
+        public void GroupRunningLevelTest()
+        {
+            Assert.Equal(BaseRunningLevel.Group, RunningLevel.Group.BaseRunningLevel);
+        }
         #endregion
 
         #region HasChild()

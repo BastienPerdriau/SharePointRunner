@@ -96,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Runners\GroupRunner.cs" />
     <Compile Include="Serialization\ConfigFileInfo.cs" />
     <Compile Include="Runners\FileRunner.cs" />
     <Compile Include="Runners\FolderRunner.cs" />
