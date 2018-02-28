@@ -80,17 +80,17 @@ namespace SharePointRunner.SDK
         public static readonly Dictionary<BaseRunningLevel, RunningLevel> Values = new List<RunningLevel>()
         {
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Tenant, Parent = null, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermStore, BaseRunningLevel.SiteCollection } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermStore, Parent = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermGroup } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermGroup, Parent = BaseRunningLevel.TermStore, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermSet } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermSet, Parent = BaseRunningLevel.TermGroup, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Term } },
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Term, Parent = BaseRunningLevel.TermSet },
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.SiteCollection, Parent = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Site }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Site, Parent = BaseRunningLevel.SiteCollection, Children = new List<BaseRunningLevel>() { BaseRunningLevel.List }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.List, Parent = BaseRunningLevel.Site, Children = new List<BaseRunningLevel>() { BaseRunningLevel.View, BaseRunningLevel.Folder, BaseRunningLevel.ListItem }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.View, Parent = BaseRunningLevel.List },
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Folder, Parent = BaseRunningLevel.List, Children = new List<BaseRunningLevel>() { BaseRunningLevel.ListItem }},
             new RunningLevel() { BaseRunningLevel = BaseRunningLevel.ListItem, Parent = BaseRunningLevel.Folder, Children = new List<BaseRunningLevel>() { BaseRunningLevel.File }},
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.File, Parent = BaseRunningLevel.ListItem },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermStore, Parent = BaseRunningLevel.Tenant, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermGroup } },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermGroup, Parent = BaseRunningLevel.TermStore, Children = new List<BaseRunningLevel>() { BaseRunningLevel.TermSet } },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.TermSet, Parent = BaseRunningLevel.TermGroup, Children = new List<BaseRunningLevel>() { BaseRunningLevel.Term } },
-            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.Term, Parent = BaseRunningLevel.TermSet }
+            new RunningLevel() { BaseRunningLevel = BaseRunningLevel.File, Parent = BaseRunningLevel.ListItem }
         }.ToDictionary(r => r.BaseRunningLevel);
 
         /// <summary>
