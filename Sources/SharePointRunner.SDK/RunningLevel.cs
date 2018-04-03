@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Online.SharePoint.TenantAdministration;
+using Microsoft.SharePoint.Client;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SharePointRunner.SDK
@@ -77,7 +79,7 @@ namespace SharePointRunner.SDK
     /// <summary>
     /// Wrapper of enumeration of running levels, adding properties
     /// </summary>
-    public class RunningLevel
+    public abstract class RunningLevel
     {
         /// <summary>
         /// Dictionary of RunningLevel by RunningLevelEnum
@@ -309,5 +311,13 @@ namespace SharePointRunner.SDK
         {
             return (r1 > r2) || (r1 == r2);
         }
+
+        private HashSet<RunningLevel<T>> prop;
     }
+
+    public abstract class RunningLevel<T> : RunningLevel where T : ClientObject { }
+
+    public class TenantRunningLevel : RunningLevel<Tenant> { }
+
+    public class 
 }
