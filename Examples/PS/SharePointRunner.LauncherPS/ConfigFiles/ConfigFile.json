@@ -1,0 +1,74 @@
+﻿{
+  "login": "admin@M365x407070.onmicrosoft.com",
+  "password": "bastienp@1138",
+  "pathToDLL": "bin",
+  //"login": "login",
+  //"password": "motdepasse",
+  "receivers": [
+    {
+      "assemblyName": "FirstLibraryExample",
+      "className": "GroupsReceiver",
+      "includeSubSites": true,
+      "parameters": [
+        {
+          "name": "GroupNames",
+          "value": "owners"
+        },
+        {
+          "name": "GroupNames",
+          "value": "readers"
+        }
+      ]
+    },
+    {
+      "assemblyName": "FirstLibraryExample",
+      "className": "PermissionsReceiver"
+    },
+    {
+      "assemblyName": "SecondLibraryExample",
+      "className": "ManagedMetadataReceiver"
+    },
+    {
+      "assemblyName": "SecondLibraryExample",
+      "className": "WebPartsReceiver"
+    },
+    {
+      "assemblyName": "SecondLibraryExample",
+      "className": "WebUsageReceiver"
+    }
+    //{
+    //  "assemblyName": "assembly2",
+    //  "className": "class2",
+    //  "parameters": [
+    //    {
+    //      "name": "Param",
+    //      "value": "test"
+    //    }
+    //  ]
+    //},
+    //{
+    //  "assemblyName": "assembly3",
+    //  "className": "class3",
+    //  "parameters": [
+    //    {
+    //      "name": "Param1",
+    //      "value": "p1t1"
+    //    },
+    //    {
+    //      "name": "Param1",
+    //      "value": "p1t2"
+    //    },
+    //    {
+    //      "name": "Param2",
+    //      "value": "p2"
+    //    }
+    //  ]
+    //}
+  ],
+  "urls": [
+    "https://M365x407070-admin.sharepoint.com"
+    //"url1",
+    //"url2"
+  ],
+  "startRunningLevel": "Tenant"
+}

@@ -23,7 +23,7 @@ namespace SharePointRunner
         internal static readonly ILog Logger = LogManager.GetLogger(typeof(SharePointRunner).Namespace);
 
         /// <summary>
-        /// Get the configurationinfo parsing the XML config file
+        /// Get the configuration info parsing the XML config file
         /// </summary>
         /// <param name="configFilePath">Path of the XML configuration file</param>
         /// <returns>Configuration informations from the file</returns>
@@ -51,7 +51,7 @@ namespace SharePointRunner
         }
 
         /// <summary>
-        /// Get the configurationinfo parsing the JSON config file
+        /// Get the configuration info parsing the JSON config file
         /// </summary>
         /// <param name="configFilePath">Path of the JSON configuration file</param>
         /// <returns>Configuration informations from the file</returns>
@@ -203,9 +203,23 @@ namespace SharePointRunner
         }
 
         /// <summary>
-        /// Start a run using the information of the configuration file
+        /// Start a run using the information info
         /// </summary>
-        /// <param name="configFilePath">Path of the JSON configuration file</param>
+        /// <param name="configInfo">configuration info</param>
+        /// <param name="credentials">SharePoint Online credentials</param>
+        public static void Run(ConfigFileInfo configInfo, SharePointOnlineCredentials credentials = null)
+        {
+            // Instanciate and feed running manager
+            RunningManager runningManager = GetRunningManagerFromConfigFile(configInfo, credentials);
+
+            // Start the process
+            runningManager?.Run();
+        }
+
+        /// <summary>
+        /// Start a run using the information from the configuration file
+        /// </summary>
+        /// <param name="configFilePath">Path of the configuration file</param>
         /// <param name="credentials">SharePoint Online credentials</param>
         public static void Run(string configFilePath, SharePointOnlineCredentials credentials = null)
         {
@@ -237,11 +251,8 @@ namespace SharePointRunner
                     throw ex;
             }
 
-            // Instanciate and feed running manager
-            RunningManager runningManager = GetRunningManagerFromConfigFile(configFileInfo, credentials);
-
-            // Start the process
-            runningManager?.Run();
+            // Instanciate the running manager and start the process
+            Run(configFileInfo, credentials);
         }
     }
 }

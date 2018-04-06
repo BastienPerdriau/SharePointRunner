@@ -110,6 +110,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)bin\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)Examples\V2\SharePointRunner.LauncherV2\bin\$(Configuration)\bin" /Y /I</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)bin\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)Examples\V2\SharePointRunner.LauncherV2\bin\$(Configuration)\bin" /Y /I
+
+xcopy "$(ProjectDir)bin\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)Examples\PS\SharePointRunner.LauncherPS\bin" /Y /I</PostBuildEvent>
   </PropertyGroup>
 </Project>

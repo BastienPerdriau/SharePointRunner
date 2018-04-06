@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1321A157-5FE8-40CC-8099-2D7812B7EFCB}</ProjectGuid>
+    <ProjectGuid>{4BD43187-7333-418B-990E-05C17B0F0368}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FirstLibraryExample</RootNamespace>
-    <AssemblyName>FirstLibraryExample</AssemblyName>
+    <RootNamespace>SharePointRunner.PowerShell</RootNamespace>
+    <AssemblyName>SharePointRunner.PowerShell</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,56 +31,57 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CsvHelper, Version=6.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\CsvHelper.6.1.1\lib\net45\CsvHelper.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Office.Client.Policy, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.Office.Client.Policy.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.Office.Client.Policy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Client.TranslationServices, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.Office.Client.TranslationServices.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.Office.Client.TranslationServices.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.SharePoint.Tools, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.Office.SharePoint.Tools.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.Office.SharePoint.Tools.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Online.SharePoint.Client.Tenant, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.Online.SharePoint.Client.Tenant.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.Online.SharePoint.Client.Tenant.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ProjectServer.Client, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.ProjectServer.Client.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.ProjectServer.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.DocumentManagement, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.DocumentManagement.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.DocumentManagement.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.Publishing, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.Publishing.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.Publishing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.Runtime.Windows, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.Runtime.Windows.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.Runtime.Windows.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.Search, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.Search.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.Search.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.Search.Applications, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.Search.Applications.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.Search.Applications.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.Taxonomy, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.Taxonomy.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.Taxonomy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.UserProfiles, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.UserProfiles.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.UserProfiles.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.WorkflowServices, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7317.1200\lib\net45\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.PowerShell.5.ReferenceAssemblies.1.1.0\lib\net4\System.Management.Automation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,28 +90,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GroupsReceiver.cs" />
-    <Compile Include="PermissionsReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Sources\SharePointRunner.SDK\SharePointRunner.SDK.csproj">
-      <Project>{7ff0252f-82fe-423a-a75e-4bce3a82cd0d}</Project>
-      <Name>SharePointRunner.SDK</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonLibraryExample\CommonLibraryExample.csproj">
-      <Project>{d37f217a-f8a5-4715-a92d-4bacb909e124}</Project>
-      <Name>CommonLibraryExample</Name>
-    </ProjectReference>
+    <Compile Include="StartSharePointRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="settings.codeclonesettings" />
+    <None Include="SharePointRunner.PowerShell.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharePointRunner\SharePointRunner.csproj">
+      <Project>{860b8aac-87e6-4a3f-8f4f-2be4054e8d4f}</Project>
+      <Name>SharePointRunner</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)bin\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)Examples\V2\SharePointRunner.LauncherV2\bin\$(Configuration)\bin" /Y /I
-
-xcopy "$(ProjectDir)bin\$(Configuration)\$(ProjectName).dll" "$(SolutionDir)Examples\PS\SharePointRunner.LauncherPS\bin" /Y /I</PostBuildEvent>
-  </PropertyGroup>
 </Project>
