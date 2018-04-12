@@ -4,9 +4,10 @@
 
 # TODO Install-Module from PowerShell Gallery or at least from a private PowerShell repos
 
-Install-Module -Name ..\..\..\Sources\SharePointRunner.PowerShell\SharePointRunner.PowerShell.psd1
+Import-Module -Name ..\..\..\Sources\SharePointRunner.PowerShell\bin\Debug\SharePointRunner.PowerShell.psd1 -PassThru
 
-$xmlConfigFilePath = "ConfigFiles/ConfigFile.xml";
-$jsonConfigFilePath = "ConfigFiles/ConfigFile.json";
+$xmlConfigFilePath = "D:\Dev\Perso\SharePointRunner\Examples\PS\SharePointRunner.LauncherPS\ConfigFiles\ConfigFile.xml";
+$jsonConfigFilePath = "D:\Dev\Perso\SharePointRunner\Examples\PS\SharePointRunner.LauncherPS\ConfigFiles\ConfigFile.json";
 
+# TODO Make it work with relative paths
 Start-SharePointRunner -ConfigFilePath $xmlConfigFilePath
