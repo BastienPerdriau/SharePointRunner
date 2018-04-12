@@ -10,4 +10,5 @@ $xmlConfigFilePath = "D:\Dev\Perso\SharePointRunner\Examples\PS\SharePointRunner
 $jsonConfigFilePath = "D:\Dev\Perso\SharePointRunner\Examples\PS\SharePointRunner.LauncherPS\ConfigFiles\ConfigFile.json";
 
 # TODO Make it work with relative paths
+# TODO Display logs from DLLs Log4Net
 Start-SharePointRunner -ConfigFilePath $xmlConfigFilePath

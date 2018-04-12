@@ -1,4 +1,5 @@
-﻿using Microsoft.SharePoint.Client;
+﻿using log4net;
+using Microsoft.SharePoint.Client;
 using System.Management.Automation;
 
 namespace SharePointRunner.PowerShell
@@ -6,6 +7,11 @@ namespace SharePointRunner.PowerShell
     [Cmdlet(VerbsLifecycle.Start, "SharePointRunner")]
     public class StartSharePointRunner : Cmdlet
     {
+        /// <summary>
+        /// Logger
+        /// </summary>
+        internal static readonly ILog Logger = LogManager.GetLogger(typeof(StartSharePointRunner).Namespace);
+
         [Parameter(Position = 0)]
         public string ConfigFilePath { get; set; } = string.Empty;
 
@@ -18,6 +24,7 @@ namespace SharePointRunner.PowerShell
 
             if (Credentials != null)
             {
+                Logger.Debug("Creating SPO credentials from PS credentials");
                 spoCreds = new SharePointOnlineCredentials(Credentials.UserName, Credentials.Password);
             }
 
