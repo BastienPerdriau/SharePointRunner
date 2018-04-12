@@ -12,6 +12,6 @@
     <description>$description$</description>
     <releaseNotes>Release</releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>sharepoint sharepoint-online office365 csom sdk</tags>
+    <tags>sharepoint sharepoint-online office365 csom</tags>
   </metadata>
 </package>

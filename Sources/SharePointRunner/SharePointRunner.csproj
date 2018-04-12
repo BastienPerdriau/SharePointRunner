@@ -86,6 +86,9 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SharePointRunner.SDK, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharePointRunner.SDK.0.1.0\lib\net471\SharePointRunner.SDK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -118,15 +121,10 @@
     <Compile Include="Runners\ViewRunner.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharePointRunner.SDK\SharePointRunner.SDK.csproj">
-      <Project>{7ff0252f-82fe-423a-a75e-4bce3a82cd0d}</Project>
-      <Name>SharePointRunner.SDK</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="SharePointRunner.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
