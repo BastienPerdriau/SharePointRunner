@@ -24,7 +24,7 @@ namespace SharePointRunner.PowerShell
 
             if (Credentials != null)
             {
-                Logger.Debug("Creating SPO credentials from PS credentials");
+                Logger.Debug($"Creating SPO credentials for '{Credentials.UserName}' from PS credentials");
                 spoCreds = new SharePointOnlineCredentials(Credentials.UserName, Credentials.Password);
             }
 
