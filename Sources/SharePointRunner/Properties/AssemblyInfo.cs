@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SharePointRunner")]
 [assembly: AssemblyDescription("Tool to run processes accross a SharePoint Online structure, from tenant to list items and files")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Bastien Perdriau")]
 [assembly: AssemblyProduct("SharePointRunner")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
