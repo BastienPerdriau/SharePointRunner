@@ -29,7 +29,7 @@ namespace SharePointRunner
         /// <returns>Configuration informations from the file</returns>
         private static ConfigFileInfo GetConfigFileInfoFromXml(string configFilePath)
         {
-            ConfigFileInfo configFileInfo = default;
+            ConfigFileInfo configFileInfo = null;
 
             // TODO Adding XML validation schema and validate before deserialization
             try
@@ -57,7 +57,7 @@ namespace SharePointRunner
         /// <returns>Configuration informations from the file</returns>
         private static ConfigFileInfo GetConfigFileInfoFromJson(string configFilePath)
         {
-            ConfigFileInfo configFileInfo = default;
+            ConfigFileInfo configFileInfo = null;
 
             // TODO Adding JSON validation schema and validate before deserialization
             try
