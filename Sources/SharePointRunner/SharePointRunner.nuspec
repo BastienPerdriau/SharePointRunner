@@ -13,5 +13,8 @@
     <releaseNotes>Release</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>sharepoint sharepoint-online office365 csom</tags>
+    <dependencies>
+      <dependency id="SharePointRunner.SDK" version="0.1.2" />
+    </dependencies>
   </metadata>
 </package>
