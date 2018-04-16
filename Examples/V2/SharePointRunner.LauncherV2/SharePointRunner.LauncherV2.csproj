@@ -81,6 +81,15 @@
     <Reference Include="Microsoft.SharePoint.Client.WorkflowServices, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.7521.1200\lib\net45\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SharePointRunner, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\SharePointRunner.0.1.2\lib\net471\SharePointRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="SharePointRunner.SDK, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\SharePointRunner.SDK.0.1.2\lib\net471\SharePointRunner.SDK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -108,14 +117,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Sources\SharePointRunner.SDK\SharePointRunner.SDK.csproj">
-      <Project>{7FF0252F-82FE-423A-A75E-4BCE3A82CD0D}</Project>
-      <Name>SharePointRunner.SDK</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Sources\SharePointRunner\SharePointRunner.csproj">
-      <Project>{860b8aac-87e6-4a3f-8f4f-2be4054e8d4f}</Project>
-      <Name>SharePointRunner</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CommonLibraryExample\CommonLibraryExample.csproj">
       <Project>{D37F217A-F8A5-4715-A92D-4BACB909E124}</Project>
       <Name>CommonLibraryExample</Name>
