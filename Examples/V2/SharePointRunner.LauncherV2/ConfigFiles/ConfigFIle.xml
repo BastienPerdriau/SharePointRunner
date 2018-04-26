@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
-  <Login>admin@M365x407070.onmicrosoft.com</Login>
-  <Password>bastienp@1138</Password>
+  <Login></Login>
+  <Password></Password>
   <PathToDLL>bin</PathToDLL>
   <!--<Login>login</Login>
   <Password>motdepasse</Password>
@@ -26,7 +26,7 @@
     </Receiver>-->
   </Receivers>
   <Urls>
-    <Url>https://M365x407070-admin.sharepoint.com</Url>
+    <Url>https://-admin.sharepoint.com</Url>
     <!--<Url>url1</Url>
     <Url>url2</Url>-->
   </Urls>
