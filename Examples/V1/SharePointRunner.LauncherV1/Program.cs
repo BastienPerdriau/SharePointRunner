@@ -9,8 +9,6 @@ namespace SharePointRunner.LauncherV1
     {
         static void Main(string[] args)
         {
-            // TODO V4 Create PS Cmdlets
-
             //List<RunningLevel> levels = new List<RunningLevel>()
             //{
             //    RunningLevel.Tenant,
