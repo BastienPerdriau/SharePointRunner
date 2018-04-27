@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SharePointRunner.PowerShell.nuspec" />
     <None Include="SharePointRunner.PowerShell.psd1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
