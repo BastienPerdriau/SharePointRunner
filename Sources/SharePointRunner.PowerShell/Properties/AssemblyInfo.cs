@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SharePointRunner.PowerShell")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("PowerShell CmdLet to run processes accross a SharePoint Online structure, from tenant to list items and files")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Bastien Perdriau")]
 [assembly: AssemblyProduct("SharePointRunner.PowerShell")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
@@ -32,6 +32,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.0")]
+[assembly: AssemblyVersion("0.1.2")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: XmlConfigurator(Watch = true)]
