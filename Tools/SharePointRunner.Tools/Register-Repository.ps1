@@ -27,8 +27,7 @@ Write-Output "Debug 1"
 if($repo -eq $null)
 {
     Write-Output "Debug 2"
-    nuget  sources add -name $RepositoryName -source $RepositorySourceUri -username $RepositoryUsername `
-    -password $RepositoryPwd -storePasswordInClearText  -verbosity detailed
+    nuget sources add -name $RepositoryName -source $RepositorySourceUri -username $RepositoryUsername -password $RepositoryPwd -storePasswordInClearText -verbosity detailed
     Write-Output "Debug 3"
 
     $securePass = ConvertTo-SecureString -String $RepositoryPwd -AsPlainText -Force
@@ -36,14 +35,12 @@ if($repo -eq $null)
     Write-Output "Debug 4"
 
     Write-Debug "Adding the Repository $RepositoryName"
-    Register-PSRepository -Name $RepositoryName -SourceLocation $RepositorySourceUri `
-                         -PublishLocation $RepositoryPublishUri -Credential $cred `
-                         -PackageManagementProvider Nuget -InstallationPolicy Trusted
+    Register-PSRepository -Name $RepositoryName -SourceLocation $RepositorySourceUri -PublishLocation $RepositoryPublishUri -Credential $cred -PackageManagementProvider Nuget -InstallationPolicy Trusted
     Write-Output "Debug 5"
 }
 else
 {
     Write-Output "Debug 6"
     Write-Debug "The repository $RepositoryName is already registered on this node. Skipped registration."
-}I
+}
 Write-Output "Debug 7"
