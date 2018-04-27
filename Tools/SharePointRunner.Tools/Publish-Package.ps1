@@ -11,5 +11,7 @@ Param(
 )
 
 Import-Module PowerShellGet
+Write-Output "Debug 0"
 
 Publish-Module -Name PackageName -Repository $RepositoryName -NuGetApiKey $RepositoryApiKey
+Write-Output "Debug 1"
