@@ -16,6 +16,11 @@ Param(
 
 Import-Module PowerShellGet
 Write-Output "Debug 0"
+Write-Output "RepositoryName $RepositoryName"
+Write-Output "RepositorySourceUri $RepositorySourceUri"
+Write-Output "RepositoryPublishUri $RepositoryPublishUri"
+Write-Output "RepositoryUsername $RepositoryUsername"
+Write-Output "RepositoryPwd $RepositoryPwd"
 $repo = Get-PSRepository -Name $RepositoryName -ErrorAction SilentlyContinue
 Write-Output "Debug 1"
 

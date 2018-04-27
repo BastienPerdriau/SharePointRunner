@@ -7,6 +7,7 @@ Param(
 )
 Import-Module PowerShellGet
 Write-Output "Debug 0"
+Write-Output "RepositoryName $RepositoryName"
 
 $repo = Get-PSRepository -Name $RepositoryName -ErrorAction SilentlyContinue
 Write-Output "Debug 1"
