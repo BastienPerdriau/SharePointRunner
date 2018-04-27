@@ -37,6 +37,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PS", "PS", "{A0692D60-FBB3-
 EndProject
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "SharePointRunner.LauncherPS", "Examples\PS\SharePointRunner.LauncherPS\SharePointRunner.LauncherPS.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{CDA9BEEF-A91A-427C-876F-692042AB98EA}"
+EndProject
+Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "SharePointRunner.Tools", "Tools\SharePointRunner.Tools\SharePointRunner.Tools.pssproj", "{C878ED89-9F34-47E8-B2F4-3BC53E3371F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +91,10 @@ Global
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C878ED89-9F34-47E8-B2F4-3BC53E3371F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C878ED89-9F34-47E8-B2F4-3BC53E3371F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C878ED89-9F34-47E8-B2F4-3BC53E3371F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C878ED89-9F34-47E8-B2F4-3BC53E3371F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +114,7 @@ Global
 		{4BD43187-7333-418B-990E-05C17B0F0368} = {74F37684-1351-4EFF-8BC2-5F1957892656}
 		{A0692D60-FBB3-4DA2-AC04-249FC917B045} = {FCD9EF45-C4ED-4E41-807A-07BEB9F90895}
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51} = {A0692D60-FBB3-4DA2-AC04-249FC917B045}
+		{C878ED89-9F34-47E8-B2F4-3BC53E3371F1} = {CDA9BEEF-A91A-427C-876F-692042AB98EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A1AD8FFF-3346-4D9A-A063-B9868A81B10F}
