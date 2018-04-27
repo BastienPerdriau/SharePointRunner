@@ -20,5 +20,5 @@ Write-Output ("Convert-Path . {0}" -f (Convert-Path .))
 Write-Output ("MyInvocation.MyCommand.Path {0}" -f $MyInvocation.MyCommand.Path)
 Get-ChildItem -Recurse
 # Publish-Module -Name $PackageName -Repository $RepositoryName -NuGetApiKey $RepositoryApiKey
-Publish-Module -Path $PackageName -Repository $RepositoryName -NuGetApiKey $RepositoryApiKey
+Publish-Module -Path ("{0}\{1}" -f (Convert-Path .), $PackageName) -Repository $RepositoryName -NuGetApiKey $RepositoryApiKey
 Write-Output "Debug 1"
