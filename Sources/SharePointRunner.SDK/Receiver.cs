@@ -27,6 +27,11 @@ namespace SharePointRunner.SDK
         public virtual bool IncludeHiddenLists { get; set; } = false;
 
         /// <summary>
+        /// Properties loading promises
+        /// </summary>
+        internal List<Promise> Promises => new List<Promise>();
+
+        /// <summary>
         /// List of running levels implemented by the receiver
         /// </summary>
         private List<RunningLevel> runningLevels;
@@ -81,15 +86,14 @@ namespace SharePointRunner.SDK
         }
 
         /// <summary>
-        /// Properties loading promises
+        /// Add properties to load before execution
         /// </summary>
-        internal List<Promise> Promises => new List<Promise>();
-
+        /// <typeparam name="T">ClientObject inherited class</typeparam>
+        /// <param name="expressions">Expressions of properties to load</param>
         protected void AddPropertiesLoading<T>(params Expression<Func<T, object>>[] expressions) where T : ClientObject
         {
             Promises.Add(new Promise<T>() { Properties = expressions });
         }
-
         // TODO Manage common properties in a same Receiver and between receivers
 
         /// <summary>
