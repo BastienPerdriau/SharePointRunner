@@ -1,7 +1,9 @@
 ﻿using Microsoft.SharePoint.Client;
 using SharePointRunner.SDK;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace SharePointRunner
 {
@@ -53,6 +55,8 @@ namespace SharePointRunner
         /// SharePoint Element
         /// </summary>
         public T Element { get; }
+        
+        protected Expression<Func<T, object>>[] Expressions => Manager.Receivers.SelectMany(r => r.Promises).Where(p => p.RunningLevel == RunningLevel);
 
         /// <summary>
         /// SharePoint Context

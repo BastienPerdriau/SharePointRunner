@@ -29,7 +29,7 @@ namespace SharePointRunner.SDK
         /// <summary>
         /// Properties loading promises
         /// </summary>
-        internal List<Promise> Promises => new List<Promise>();
+        private Promise<T>[] promises = new Promise<T>[];
 
         /// <summary>
         /// List of running levels implemented by the receiver
@@ -89,12 +89,20 @@ namespace SharePointRunner.SDK
         /// Add properties to load before execution
         /// </summary>
         /// <typeparam name="T">ClientObject inherited class</typeparam>
+        /// <param name="runningLevel">Running level of properties</param>
         /// <param name="expressions">Expressions of properties to load</param>
-        protected void AddPropertiesLoading<T>(params Expression<Func<T, object>>[] expressions) where T : ClientObject
+        protected void AddPropertiesLoading<T>(RunningLevel runningLevel, params Expression<Func<T, object>>[] expressions) where T : ClientObject
         {
-            Promises.Add(new Promise<T>() { Properties = expressions });
+            // TODO Secure RunningLevel and expressions
+            // TODO Remove RunningLevel from parameters et get it from T with switch and return false if not added to Promises
+            promises.Add(new Promise<T>() { RunningLevel = runningLevel, Properties = expressions });
         }
         // TODO Manage common properties in a same Receiver and between receivers
+
+        public Expression<Func<T, object>>[] GetPropertiesLoading<T>()
+        {
+
+        }
 
         /// <summary>
         /// Event at the start of process
