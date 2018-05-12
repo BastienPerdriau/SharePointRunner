@@ -53,6 +53,11 @@ namespace SharePointRunner.LauncherV1
 
     public class GroupsReceiver : Receiver
     {
+        public GroupsReceiver()
+        {
+            AddPropertiesLoading<Web>(w => w.Title);
+        }
+
         List<string> groupNames = new List<string>() { "owners" };
 
         public override void OnSiteCollectionRunningStart(Site site, Web rootWeb)

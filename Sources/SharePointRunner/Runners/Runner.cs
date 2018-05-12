@@ -40,6 +40,7 @@ namespace SharePointRunner
         /// Action for this object
         /// </summary>
         public abstract void Process();
+        // TODO At the start of each Process(), get the properties loading promises and call it
     }
 
     /// <summary>

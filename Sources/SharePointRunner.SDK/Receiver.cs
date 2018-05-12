@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Linq.Expressions;
 
 namespace SharePointRunner.SDK
 {
@@ -78,6 +79,18 @@ namespace SharePointRunner.SDK
         {
             return method.DeclaringType != method.GetBaseDefinition().DeclaringType && !method.IsAbstract;
         }
+
+        /// <summary>
+        /// Properties loading promises
+        /// </summary>
+        internal List<Promise> Promises => new List<Promise>();
+
+        protected void AddPropertiesLoading<T>(params Expression<Func<T, object>>[] expressions) where T : ClientObject
+        {
+            Promises.Add(new Promise<T>() { Properties = expressions });
+        }
+
+        // TODO Manage common properties in a same Receiver and between receivers
 
         /// <summary>
         /// Event at the start of process

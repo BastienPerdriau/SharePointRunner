@@ -1,5 +1,6 @@
 ﻿using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
+using Microsoft.SharePoint.Client.Taxonomy;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -79,7 +80,7 @@ namespace SharePointRunner.SDK
     /// <summary>
     /// Wrapper of enumeration of running levels, adding properties
     /// </summary>
-    public abstract class RunningLevel
+    public class RunningLevel
     {
         /// <summary>
         /// Dictionary of RunningLevel by RunningLevelEnum
@@ -121,6 +122,7 @@ namespace SharePointRunner.SDK
         /// </summary>
         public List<BaseRunningLevel> Children { get; internal set; } = new List<BaseRunningLevel>();
 
+        #region Static properties
         /// <summary>
         /// Tenant level
         /// </summary>
@@ -185,6 +187,7 @@ namespace SharePointRunner.SDK
         /// File Level
         /// </summary>
         public static RunningLevel File => Values[BaseRunningLevel.File];
+        #endregion
 
         /// <summary>
         /// Know if the current running level has another one as parent level
@@ -206,6 +209,7 @@ namespace SharePointRunner.SDK
             return Children.Contains(otherRunningLevel.BaseRunningLevel) || Children.Any(l => Values[l].HasChild(otherRunningLevel));
         }
 
+        #region Overrides
         /// <summary>
         /// Override of ToString() method to display the ToString() of the enum value
         /// </summary>
@@ -311,13 +315,6 @@ namespace SharePointRunner.SDK
         {
             return (r1 > r2) || (r1 == r2);
         }
-
-        private HashSet<RunningLevel<T>> prop;
+        #endregion
     }
-
-    public abstract class RunningLevel<T> : RunningLevel where T : ClientObject { }
-
-    public class TenantRunningLevel : RunningLevel<Tenant> { }
-
-    public class 
 }
